@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hebeu.keyan.dao.IncludeToolMapper" >
+  <resultMap id="BaseResultMap" type="com.hebeu.keyan.po.IncludeTool" >
+    <id column="include_tool_id" property="includeToolId" jdbcType="INTEGER" />
+    <result column="include_tool_name" property="includeToolName" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="DOUBLE" />
+    <result column="is_effective" property="isEffective" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    include_tool_id, include_tool_name, score, is_effective
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hebeu.keyan.po.IncludeToolExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from include_tool
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from include_tool
+    where include_tool_id = #{includeToolId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from include_tool
+    where include_tool_id = #{includeToolId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hebeu.keyan.po.IncludeToolExample" >
+    delete from include_tool
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hebeu.keyan.po.IncludeTool" >
+    insert into include_tool (include_tool_id, include_tool_name, score, 
+      is_effective)
+    values (#{includeToolId,jdbcType=INTEGER}, #{includeToolName,jdbcType=VARCHAR}, #{score,jdbcType=DOUBLE}, 
+      #{isEffective,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hebeu.keyan.po.IncludeTool" >
+    insert into include_tool
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="includeToolId != null" >
+        include_tool_id,
+      </if>
+      <if test="includeToolName != null" >
+        include_tool_name,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="isEffective != null" >
+        is_effective,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="includeToolId != null" >
+        #{includeToolId,jdbcType=INTEGER},
+      </if>
+      <if test="includeToolName != null" >
+        #{includeToolName,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="isEffective != null" >
+        #{isEffective,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hebeu.keyan.po.IncludeToolExample" resultType="java.lang.Integer" >
+    select count(*) from include_tool
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update include_tool
+    <set >
+      <if test="record.includeToolId != null" >
+        include_tool_id = #{record.includeToolId,jdbcType=INTEGER},
+      </if>
+      <if test="record.includeToolName != null" >
+        include_tool_name = #{record.includeToolName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=DOUBLE},
+      </if>
+      <if test="record.isEffective != null" >
+        is_effective = #{record.isEffective,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update include_tool
+    set include_tool_id = #{record.includeToolId,jdbcType=INTEGER},
+      include_tool_name = #{record.includeToolName,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=DOUBLE},
+      is_effective = #{record.isEffective,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hebeu.keyan.po.IncludeTool" >
+    update include_tool
+    <set >
+      <if test="includeToolName != null" >
+        include_tool_name = #{includeToolName,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="isEffective != null" >
+        is_effective = #{isEffective,jdbcType=INTEGER},
+      </if>
+    </set>
+    where include_tool_id = #{includeToolId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hebeu.keyan.po.IncludeTool" >
+    update include_tool
+    set include_tool_name = #{includeToolName,jdbcType=VARCHAR},
+      score = #{score,jdbcType=DOUBLE},
+      is_effective = #{isEffective,jdbcType=INTEGER}
+    where include_tool_id = #{includeToolId,jdbcType=INTEGER}
+  </update>
+</mapper>
