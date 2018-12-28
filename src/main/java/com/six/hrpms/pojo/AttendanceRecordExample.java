@@ -1,16 +1,17 @@
 package com.six.hrpms.pojo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class IncludeToolExample {
+public class AttendanceRecordExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public IncludeToolExample() {
+    public AttendanceRecordExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -104,253 +105,273 @@ public class IncludeToolExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andIncludeToolIdIsNull() {
-            addCriterion("include_tool_id is null");
+        public Criteria andIdIsNull() {
+            addCriterion("id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolIdIsNotNull() {
-            addCriterion("include_tool_id is not null");
+        public Criteria andIdIsNotNull() {
+            addCriterion("id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolIdEqualTo(Integer value) {
-            addCriterion("include_tool_id =", value, "includeToolId");
+        public Criteria andIdEqualTo(String value) {
+            addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolIdNotEqualTo(Integer value) {
-            addCriterion("include_tool_id <>", value, "includeToolId");
+        public Criteria andIdNotEqualTo(String value) {
+            addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolIdGreaterThan(Integer value) {
-            addCriterion("include_tool_id >", value, "includeToolId");
+        public Criteria andIdGreaterThan(String value) {
+            addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("include_tool_id >=", value, "includeToolId");
+        public Criteria andIdGreaterThanOrEqualTo(String value) {
+            addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolIdLessThan(Integer value) {
-            addCriterion("include_tool_id <", value, "includeToolId");
+        public Criteria andIdLessThan(String value) {
+            addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolIdLessThanOrEqualTo(Integer value) {
-            addCriterion("include_tool_id <=", value, "includeToolId");
+        public Criteria andIdLessThanOrEqualTo(String value) {
+            addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolIdIn(List<Integer> values) {
-            addCriterion("include_tool_id in", values, "includeToolId");
+        public Criteria andIdLike(String value) {
+            addCriterion("id like", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolIdNotIn(List<Integer> values) {
-            addCriterion("include_tool_id not in", values, "includeToolId");
+        public Criteria andIdNotLike(String value) {
+            addCriterion("id not like", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolIdBetween(Integer value1, Integer value2) {
-            addCriterion("include_tool_id between", value1, value2, "includeToolId");
+        public Criteria andIdIn(List<String> values) {
+            addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("include_tool_id not between", value1, value2, "includeToolId");
+        public Criteria andIdNotIn(List<String> values) {
+            addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolNameIsNull() {
-            addCriterion("include_tool_name is null");
+        public Criteria andIdBetween(String value1, String value2) {
+            addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolNameIsNotNull() {
-            addCriterion("include_tool_name is not null");
+        public Criteria andIdNotBetween(String value1, String value2) {
+            addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolNameEqualTo(String value) {
-            addCriterion("include_tool_name =", value, "includeToolName");
+        public Criteria andUserIdIsNull() {
+            addCriterion("user_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolNameNotEqualTo(String value) {
-            addCriterion("include_tool_name <>", value, "includeToolName");
+        public Criteria andUserIdIsNotNull() {
+            addCriterion("user_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolNameGreaterThan(String value) {
-            addCriterion("include_tool_name >", value, "includeToolName");
+        public Criteria andUserIdEqualTo(String value) {
+            addCriterion("user_id =", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolNameGreaterThanOrEqualTo(String value) {
-            addCriterion("include_tool_name >=", value, "includeToolName");
+        public Criteria andUserIdNotEqualTo(String value) {
+            addCriterion("user_id <>", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolNameLessThan(String value) {
-            addCriterion("include_tool_name <", value, "includeToolName");
+        public Criteria andUserIdGreaterThan(String value) {
+            addCriterion("user_id >", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolNameLessThanOrEqualTo(String value) {
-            addCriterion("include_tool_name <=", value, "includeToolName");
+        public Criteria andUserIdGreaterThanOrEqualTo(String value) {
+            addCriterion("user_id >=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolNameLike(String value) {
-            addCriterion("include_tool_name like", value, "includeToolName");
+        public Criteria andUserIdLessThan(String value) {
+            addCriterion("user_id <", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolNameNotLike(String value) {
-            addCriterion("include_tool_name not like", value, "includeToolName");
+        public Criteria andUserIdLessThanOrEqualTo(String value) {
+            addCriterion("user_id <=", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolNameIn(List<String> values) {
-            addCriterion("include_tool_name in", values, "includeToolName");
+        public Criteria andUserIdLike(String value) {
+            addCriterion("user_id like", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolNameNotIn(List<String> values) {
-            addCriterion("include_tool_name not in", values, "includeToolName");
+        public Criteria andUserIdNotLike(String value) {
+            addCriterion("user_id not like", value, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolNameBetween(String value1, String value2) {
-            addCriterion("include_tool_name between", value1, value2, "includeToolName");
+        public Criteria andUserIdIn(List<String> values) {
+            addCriterion("user_id in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andIncludeToolNameNotBetween(String value1, String value2) {
-            addCriterion("include_tool_name not between", value1, value2, "includeToolName");
+        public Criteria andUserIdNotIn(List<String> values) {
+            addCriterion("user_id not in", values, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andScoreIsNull() {
-            addCriterion("score is null");
+        public Criteria andUserIdBetween(String value1, String value2) {
+            addCriterion("user_id between", value1, value2, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andScoreIsNotNull() {
-            addCriterion("score is not null");
+        public Criteria andUserIdNotBetween(String value1, String value2) {
+            addCriterion("user_id not between", value1, value2, "userId");
             return (Criteria) this;
         }
 
-        public Criteria andScoreEqualTo(Double value) {
-            addCriterion("score =", value, "score");
+        public Criteria andTimeIsNull() {
+            addCriterion("time is null");
             return (Criteria) this;
         }
 
-        public Criteria andScoreNotEqualTo(Double value) {
-            addCriterion("score <>", value, "score");
+        public Criteria andTimeIsNotNull() {
+            addCriterion("time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andScoreGreaterThan(Double value) {
-            addCriterion("score >", value, "score");
+        public Criteria andTimeEqualTo(Date value) {
+            addCriterion("time =", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andScoreGreaterThanOrEqualTo(Double value) {
-            addCriterion("score >=", value, "score");
+        public Criteria andTimeNotEqualTo(Date value) {
+            addCriterion("time <>", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andScoreLessThan(Double value) {
-            addCriterion("score <", value, "score");
+        public Criteria andTimeGreaterThan(Date value) {
+            addCriterion("time >", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andScoreLessThanOrEqualTo(Double value) {
-            addCriterion("score <=", value, "score");
+        public Criteria andTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("time >=", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andScoreIn(List<Double> values) {
-            addCriterion("score in", values, "score");
+        public Criteria andTimeLessThan(Date value) {
+            addCriterion("time <", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andScoreNotIn(List<Double> values) {
-            addCriterion("score not in", values, "score");
+        public Criteria andTimeLessThanOrEqualTo(Date value) {
+            addCriterion("time <=", value, "time");
             return (Criteria) this;
         }
 
-        public Criteria andScoreBetween(Double value1, Double value2) {
-            addCriterion("score between", value1, value2, "score");
+        public Criteria andTimeIn(List<Date> values) {
+            addCriterion("time in", values, "time");
             return (Criteria) this;
         }
 
-        public Criteria andScoreNotBetween(Double value1, Double value2) {
-            addCriterion("score not between", value1, value2, "score");
+        public Criteria andTimeNotIn(List<Date> values) {
+            addCriterion("time not in", values, "time");
             return (Criteria) this;
         }
 
-        public Criteria andIsEffectiveIsNull() {
-            addCriterion("is_effective is null");
+        public Criteria andTimeBetween(Date value1, Date value2) {
+            addCriterion("time between", value1, value2, "time");
             return (Criteria) this;
         }
 
-        public Criteria andIsEffectiveIsNotNull() {
-            addCriterion("is_effective is not null");
+        public Criteria andTimeNotBetween(Date value1, Date value2) {
+            addCriterion("time not between", value1, value2, "time");
             return (Criteria) this;
         }
 
-        public Criteria andIsEffectiveEqualTo(Integer value) {
-            addCriterion("is_effective =", value, "isEffective");
+        public Criteria andStatusIsNull() {
+            addCriterion("status is null");
             return (Criteria) this;
         }
 
-        public Criteria andIsEffectiveNotEqualTo(Integer value) {
-            addCriterion("is_effective <>", value, "isEffective");
+        public Criteria andStatusIsNotNull() {
+            addCriterion("status is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIsEffectiveGreaterThan(Integer value) {
-            addCriterion("is_effective >", value, "isEffective");
+        public Criteria andStatusEqualTo(String value) {
+            addCriterion("status =", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andIsEffectiveGreaterThanOrEqualTo(Integer value) {
-            addCriterion("is_effective >=", value, "isEffective");
+        public Criteria andStatusNotEqualTo(String value) {
+            addCriterion("status <>", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andIsEffectiveLessThan(Integer value) {
-            addCriterion("is_effective <", value, "isEffective");
+        public Criteria andStatusGreaterThan(String value) {
+            addCriterion("status >", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andIsEffectiveLessThanOrEqualTo(Integer value) {
-            addCriterion("is_effective <=", value, "isEffective");
+        public Criteria andStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("status >=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andIsEffectiveIn(List<Integer> values) {
-            addCriterion("is_effective in", values, "isEffective");
+        public Criteria andStatusLessThan(String value) {
+            addCriterion("status <", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andIsEffectiveNotIn(List<Integer> values) {
-            addCriterion("is_effective not in", values, "isEffective");
+        public Criteria andStatusLessThanOrEqualTo(String value) {
+            addCriterion("status <=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andIsEffectiveBetween(Integer value1, Integer value2) {
-            addCriterion("is_effective between", value1, value2, "isEffective");
+        public Criteria andStatusLike(String value) {
+            addCriterion("status like", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andIsEffectiveNotBetween(Integer value1, Integer value2) {
-            addCriterion("is_effective not between", value1, value2, "isEffective");
+        public Criteria andStatusNotLike(String value) {
+            addCriterion("status not like", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIn(List<String> values) {
+            addCriterion("status in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotIn(List<String> values) {
+            addCriterion("status not in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusBetween(String value1, String value2) {
+            addCriterion("status between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotBetween(String value1, String value2) {
+            addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }
     }
