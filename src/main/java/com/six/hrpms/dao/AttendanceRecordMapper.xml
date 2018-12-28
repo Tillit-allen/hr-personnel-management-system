@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hebeu.keyan.dao.IncludeToolMapper" >
-  <resultMap id="BaseResultMap" type="com.hebeu.keyan.po.IncludeTool" >
-    <id column="include_tool_id" property="includeToolId" jdbcType="INTEGER" />
-    <result column="include_tool_name" property="includeToolName" jdbcType="VARCHAR" />
-    <result column="score" property="score" jdbcType="DOUBLE" />
-    <result column="is_effective" property="isEffective" jdbcType="INTEGER" />
+<mapper namespace="com.six.hrpms.dao.AttendanceRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.six.hrpms.pojo.AttendanceRecord" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    include_tool_id, include_tool_name, score, is_effective
+    id, user_id, time, status
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hebeu.keyan.po.IncludeToolExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.six.hrpms.pojo.AttendanceRecordExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from include_tool
+    from attendance_record
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -82,79 +82,79 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from include_tool
-    where include_tool_id = #{includeToolId,jdbcType=INTEGER}
+    from attendance_record
+    where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from include_tool
-    where include_tool_id = #{includeToolId,jdbcType=INTEGER}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from attendance_record
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hebeu.keyan.po.IncludeToolExample" >
-    delete from include_tool
+  <delete id="deleteByExample" parameterType="com.six.hrpms.pojo.AttendanceRecordExample" >
+    delete from attendance_record
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hebeu.keyan.po.IncludeTool" >
-    insert into include_tool (include_tool_id, include_tool_name, score, 
-      is_effective)
-    values (#{includeToolId,jdbcType=INTEGER}, #{includeToolName,jdbcType=VARCHAR}, #{score,jdbcType=DOUBLE}, 
-      #{isEffective,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.six.hrpms.pojo.AttendanceRecord" >
+    insert into attendance_record (id, user_id, time, 
+      status)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.hebeu.keyan.po.IncludeTool" >
-    insert into include_tool
+  <insert id="insertSelective" parameterType="com.six.hrpms.pojo.AttendanceRecord" >
+    insert into attendance_record
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="includeToolId != null" >
-        include_tool_id,
+      <if test="id != null" >
+        id,
       </if>
-      <if test="includeToolName != null" >
-        include_tool_name,
+      <if test="userId != null" >
+        user_id,
       </if>
-      <if test="score != null" >
-        score,
+      <if test="time != null" >
+        time,
       </if>
-      <if test="isEffective != null" >
-        is_effective,
+      <if test="status != null" >
+        status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="includeToolId != null" >
-        #{includeToolId,jdbcType=INTEGER},
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
       </if>
-      <if test="includeToolName != null" >
-        #{includeToolName,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
       </if>
-      <if test="score != null" >
-        #{score,jdbcType=DOUBLE},
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
       </if>
-      <if test="isEffective != null" >
-        #{isEffective,jdbcType=INTEGER},
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hebeu.keyan.po.IncludeToolExample" resultType="java.lang.Integer" >
-    select count(*) from include_tool
+  <select id="countByExample" parameterType="com.six.hrpms.pojo.AttendanceRecordExample" resultType="java.lang.Integer" >
+    select count(*) from attendance_record
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update include_tool
+    update attendance_record
     <set >
-      <if test="record.includeToolId != null" >
-        include_tool_id = #{record.includeToolId,jdbcType=INTEGER},
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
       </if>
-      <if test="record.includeToolName != null" >
-        include_tool_name = #{record.includeToolName,jdbcType=VARCHAR},
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
       </if>
-      <if test="record.score != null" >
-        score = #{record.score,jdbcType=DOUBLE},
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.isEffective != null" >
-        is_effective = #{record.isEffective,jdbcType=INTEGER},
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -162,35 +162,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update include_tool
-    set include_tool_id = #{record.includeToolId,jdbcType=INTEGER},
-      include_tool_name = #{record.includeToolName,jdbcType=VARCHAR},
-      score = #{record.score,jdbcType=DOUBLE},
-      is_effective = #{record.isEffective,jdbcType=INTEGER}
+    update attendance_record
+    set id = #{record.id,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hebeu.keyan.po.IncludeTool" >
-    update include_tool
+  <update id="updateByPrimaryKeySelective" parameterType="com.six.hrpms.pojo.AttendanceRecord" >
+    update attendance_record
     <set >
-      <if test="includeToolName != null" >
-        include_tool_name = #{includeToolName,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
       </if>
-      <if test="score != null" >
-        score = #{score,jdbcType=DOUBLE},
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
       </if>
-      <if test="isEffective != null" >
-        is_effective = #{isEffective,jdbcType=INTEGER},
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
       </if>
     </set>
-    where include_tool_id = #{includeToolId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hebeu.keyan.po.IncludeTool" >
-    update include_tool
-    set include_tool_name = #{includeToolName,jdbcType=VARCHAR},
-      score = #{score,jdbcType=DOUBLE},
-      is_effective = #{isEffective,jdbcType=INTEGER}
-    where include_tool_id = #{includeToolId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.six.hrpms.pojo.AttendanceRecord" >
+    update attendance_record
+    set user_id = #{userId,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
