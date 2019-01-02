@@ -87,9 +87,9 @@
         <li><ul class="dashboard-menu nav nav-list collapse in">
             <!--<li><a onclick=toPage("index.html")><span class="fa fa-caret-right"></span> 首页</a></li>-->
             <li ><a onclick=toPage("employee/EmployeeList")><span class="fa fa-caret-right"></span> 员工列表</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> 四字词语</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> 新增核验</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> 批量录入</a></li>
+            <li ><a onclick=toPage("employee/addEmployee1")><span class="fa fa-caret-right"></span> 初始化员工信息</a></li>
+            <li ><a onclick=toPage("employee/addEmployee2")><span class="fa fa-caret-right"></span> 员工核准</a></li>
+            <li ><a onclick=toPage("employee/checkAddEmployee")><span class="fa fa-caret-right"></span> 管理员校验</a></li>
         </ul></li>
 
         <li data-popover="true" data-content="Items in this group require a <strong><a href='http://portnine.com/bootstrap-themes/aircraft' target='blank'>premium license</a><strong>." rel="popover" data-placement="right"><a href="#" data-target=".premium-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-fighter-jet"></i> 考勤管理<i class="fa fa-collapse"></i></a></li>
