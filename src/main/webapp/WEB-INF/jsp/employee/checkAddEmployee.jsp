@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: lihang
-  Date: 2018/12/28
-  Time: 19:49
+  Date: 2018/12/29
+  Time: 13:56
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,12 +13,9 @@
     <script src="${pageContext.request.contextPath}/js/vue.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-
 </head>
-
 <body>
-<div id="list_zone">
-    <button @click="doSearch">查询</button>
+<div id="check_zone">
     <el-table
             :data="tableData"
             style="width: 100%">
@@ -73,43 +70,6 @@
         </el-table-column>
     </el-table>
 </div>
-<script>
-    new Vue({
-        el:"#list_zone",
-        data:{
-            tableData:[]
-        },
-        methods:{
-            doDel:function () {
 
-            },
-            doEdit:function () {
-
-            },
-            doSearch:function () {
-
-            }
-        },
-        mounted:function () {
-            const this_ = this;
-            $.ajax({
-                url:"${pageContext.request.contextPath}/getAllEmployee",
-                data:{
-
-                },
-                type:"post",
-                dataType:"json",
-                success:function (res) {
-                    this_.tableData = res.data;
-                    console.log(res);
-                },
-                error:function () {
-
-                }
-            })
-        }
-        
-    })
-</script>
 </body>
 </html>
