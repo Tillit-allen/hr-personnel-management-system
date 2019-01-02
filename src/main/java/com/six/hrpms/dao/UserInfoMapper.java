@@ -4,9 +4,11 @@ import com.six.hrpms.pojo.UserInfo;
 import com.six.hrpms.pojo.UserInfoExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserInfoMapper {
-    int countByExample(UserInfoExample example);
+    long countByExample(UserInfoExample example);
 
     int deleteByExample(UserInfoExample example);
 
