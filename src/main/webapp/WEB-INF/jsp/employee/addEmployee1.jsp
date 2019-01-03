@@ -87,7 +87,7 @@
             userId: "",
             userName: "",
             loginName: "",
-            passWord: "123123",
+            passWord: "123456",
             sex: "",
             bossName: "",
             basicSalary: "",
@@ -95,7 +95,7 @@
         methods: {
             doSubmit: function () {
                 $.ajax({
-                    url: "/addEmployee",
+                    url: "/userInfo/addEmployee",
                     data: {
                         id: this.userId,
                         name: this.userName,
@@ -119,23 +119,6 @@
 
             },
         },
-        mounted: function () {
-            const this_ = this;
-            // $.ajax({
-            //     url: "",
-            //     data: {},
-            //     type: "post",
-            //     dataType: "json",
-            //     success: function (res) {
-            //         this_.tableData = res.data;
-            //         console.log(res);
-            //     },
-            //     error: function () {
-            //
-            //     }
-            // })
-        }
-
     })
 </script>
 </body>
