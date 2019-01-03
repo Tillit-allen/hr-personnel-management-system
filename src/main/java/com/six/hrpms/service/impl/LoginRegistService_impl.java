@@ -2,6 +2,7 @@ package com.six.hrpms.service.impl;
 
 import com.six.hrpms.dao.UserMapper;
 import com.six.hrpms.pojo.User;
+import com.six.hrpms.pojo.UserExample;
 import com.six.hrpms.service.LoginRegisterService;
 import com.zhenzi.sms.ZhenziSmsClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Service
 public class LoginRegistService_impl implements LoginRegisterService {
@@ -43,10 +45,17 @@ public class LoginRegistService_impl implements LoginRegisterService {
 
     @Override
     public User doLogin(User user) {
-        if (user.getPassword().equals(userMapper.selectByPrimaryKey(user.getLoginName()).getPassword()))
-            return user;
-        else
-            return null;
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andLoginNameEqualTo(user.getLoginName());
+        criteria.andPasswordEqualTo(user.getPassword());
+        List<User> u = userMapper.selectByExample(example);
+//        System.out.println("====================================size"+u.size());
+        if(u.size()!=0) {
+                return u.get(0);
+        }
+
+        return null;
     }
 
     @Override
@@ -60,8 +69,6 @@ public class LoginRegistService_impl implements LoginRegisterService {
             }
         }
         if (!res.equals("") && res != null) {
-//            System.out.println("=============" + res);
-//            System.out.println("=============" + code);
             if (res.equals(code)) {
                 return "200";
             }

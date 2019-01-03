@@ -19,6 +19,7 @@
 <body>
 <div id="list_zone">
     <button @click="doSearch">查询</button>
+    <button @click="doSalary">发工资</button>
     <el-table
             :data="tableData"
             style="width: 100%">
@@ -67,8 +68,8 @@
                 label="操作"
                 width="100">
             <template slot-scope="scope">
-                <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
-                <el-button type="text" size="small">删除</el-button>
+                <el-button @click="doEdit(scope.row)" type="text" size="small">编辑</el-button>
+                <el-button type="text" size="small" @click="doDel(scope.row)">删除</el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -88,12 +89,15 @@
             },
             doSearch:function () {
 
+            },
+            doSalary:function () {
+
             }
         },
         mounted:function () {
             const this_ = this;
             $.ajax({
-                url:"${pageContext.request.contextPath}/getAllEmployee",
+                url:"${pageContext.request.contextPath}/userInfo/getAllEmployee",
                 data:{
 
                 },
