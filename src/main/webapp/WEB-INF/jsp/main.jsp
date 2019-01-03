@@ -81,7 +81,7 @@
     </c:choose>
     </ul>
 </div>
-<div class="sidebar-nav">
+<div class="sidebar-nav" style="margin-left: -20px">
     <ul>
         <li><a href="#" data-target=".dashboard-menu" class="nav-header" data-toggle="collapse"><i class="fa fa-fw fa-dashboard"></i> 人员信息<i class="fa fa-collapse"></i></a></li>
         <li><ul class="dashboard-menu nav nav-list collapse in">
