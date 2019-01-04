@@ -108,15 +108,20 @@
                     type:"post",
                     dataType: "json",
                     success: function (res) {
+                        if(res.status==200){
+                            alert("初始化完成!");
+                        }else{
+                            alert("初始化失败!");
+                        }
                     console.log(res);
                 },
                 error:function () {
-                    alert(1);
+                    alert("服务器错误！");
                 }
             })
             },
             doRes: function () {
-
+                location.reload();
             },
         },
     })

@@ -34,6 +34,11 @@
         .sidebar-nav{
             width:14%;
         }
+        #title{
+            margin-left:200px;
+            margin-top:100px;
+            text-align: center;
+        }
 
     </style>
 </head>
@@ -127,7 +132,19 @@
         <li><a onclick=toPage("") class="nav-header" target="blank"><i class="fa fa-fw fa-heart"></i> 出差报销</a></li>
     </ul>
 </div></div>
-<iframe src="${pageContext.request.contextPath}/welcome.jsp" style="width:86%;height:500px;float: right;border:none;" id="zone"></iframe>
+<c:choose>
+    <c:when test="${sessionScope.user==null}">
+        <div id="title">
+            <h2 >傻逼玩意登陆去滚滚滚滚</h2>
+            <br/>
+            <span style="color:#aaaaaa">右上角点击登陆</span>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <iframe src="${pageContext.request.contextPath}/welcome.jsp" style="width:86%;height:500px;float: right;border:none;" id="zone"></iframe>
+    </c:otherwise>
+</c:choose>
+
 <script>
     //iframe跳转页面
     function toPage(page) {
