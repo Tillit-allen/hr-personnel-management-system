@@ -58,6 +58,7 @@ public class LoginRegistController {
         User u = loginRegisterService.doLogin(user);
         if(u!=null){
 //                model.addAttribute("user",u);
+                session.setMaxInactiveInterval(30*60);
                 session.setAttribute("user",u);
                 session.setAttribute("sessionid",session.getId());
             return JSON.ok();
