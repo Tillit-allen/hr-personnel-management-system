@@ -114,11 +114,11 @@
             <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Additional Color Themes</a></li>
         </ul></li>
 
-        <li><a href="#" data-target=".accounts-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-briefcase"></i> 加班申请<span class="label label-info">+3</span></a></li>
+        <li><a href="#" data-target=".accounts-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-briefcase"></i> 加班申请<i class="fa fa-collapse"></i></a></li>
         <li><ul class="accounts-menu nav nav-list collapse">
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Sign In</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Sign Up</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Reset Password</a></li>
+            <li ><a onclick=toPage("OvertimeRecords/addApplyOvertime")><span class="fa fa-caret-right"></span> 请假申请</a></li>
+            <li ><a onclick=toPage("OvertimeRecords/showApplyOvertime")><span class="fa fa-caret-right"></span> 审核状态</a></li>
+
         </ul></li>
 
         <li><a href="#" data-target=".legal-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-legal"></i>请假申请<i class="fa fa-collapse"></i></a></li>
