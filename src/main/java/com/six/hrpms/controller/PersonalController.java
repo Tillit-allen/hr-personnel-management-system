@@ -1,38 +1,23 @@
 package com.six.hrpms.controller;
 
 import com.six.hrpms.common.JSON;
-import com.six.hrpms.pojo.User;
 import com.six.hrpms.pojo.UserInfo;
 import com.six.hrpms.service.PersonalService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.six.hrpms.pojo.AddminAddEmployee_po;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/userInfo")
 public class PersonalController {
+
+//    @Autowired
     private UserInfo userInfo = new UserInfo();
-    private User user = new User();
     @Autowired
     private PersonalService personalService;
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
-
 
     /*
     *   显示员工列表
@@ -43,13 +28,6 @@ public class PersonalController {
     @ResponseBody
     public JSON getAllEmployee(){
         return JSON.ok(personalService.getAllUser());
-    }
-
-    //显示未激活的员工列表
-    @RequestMapping(value = "/getUnActiveEmployee",method = {RequestMethod.POST})
-    @ResponseBody
-    public JSON getUnActiveEmployee(){
-        return JSON.ok(personalService.getUnActiveEmpl());
     }
 
     /*
@@ -66,15 +44,9 @@ public class PersonalController {
         userInfo.setUserId(addminAddEmployee_po.getId());
         userInfo.setBossName(addminAddEmployee_po.getBoss());
         userInfo.setIsAdministrator(0);
-        user.setLoginName(addminAddEmployee_po.getLoginName());
-        user.setPassword(addminAddEmployee_po.getPassword());
-        user.setUserId(addminAddEmployee_po.getId());
         int flag;
         if(personalService.selectFromUserInfo(userInfo)==null){//查看员工是否已经存在
             flag = personalService.addEmplForAdmin(userInfo);
-            if(personalService.selectFromUser(user)==null){//同时user表中也新增信息
-                personalService.addUserForAdmin(user);
-            }
         }else{
             return JSON.errorMsg("用户已存在！");
         }
@@ -92,11 +64,6 @@ public class PersonalController {
         this.userInfo =  personalService.selectFromUserInfo(userInfo);
         return JSON.ok(this.userInfo);
     }
-    @RequestMapping(value = "/getEmployeeDataForModify",method = {RequestMethod.POST})
-    @ResponseBody
-    public JSON getEmployeeForEmployee2(){
-        return JSON.ok(personalService.selectFromUserInfo(userInfo));
-    }
 
     /*
     *   把员工补全的信息更新到表里等待校验
@@ -106,7 +73,6 @@ public class PersonalController {
     @RequestMapping(value = "/updateUserInfo_",method = {RequestMethod.POST})
     @ResponseBody
     public JSON  addEmployeeForEmployee(UserInfo userInfo){
-        userInfo.setIsAdministrator(1);//设置当前用户状态为：等待管理员校验
         if(personalService.addEmplForEmpl(userInfo)>0){//这个方法名字叫add，其实里面是update方法
             return JSON.ok();
         }
@@ -118,55 +84,19 @@ public class PersonalController {
     * */
     @RequestMapping(value = "/adminCheck",method = {RequestMethod.POST})
     @ResponseBody
-    public JSON checkEmploy(UserInfo userInfo,String flag){
-        if(flag.equals("true")){
-            userInfo.setIsAdministrator(3);
-        }else
-        {
-            userInfo.setIsAdministrator(2);
-        }
+    public JSON checkEmploy(UserInfo userInfo){
+        if(userInfo.getIsAdministrator()!=0){
             personalService.updateEmplForAdmin(userInfo);
+        }
         return JSON.ok();
     }
 
-    //跳转至修改页面
-    @RequestMapping(value = "/toChange")
-    public String toChange(@Param("userId") String userId){
-        userInfo.setUserId(userId);
-        return "employee/ModifyEmployee";
-    }
-    //管理员编辑员工信息
-    @RequestMapping(value = "/adminModify",method = {RequestMethod.POST})
-    @ResponseBody
-    public JSON adminModify(UserInfo userInfo){
-//        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//        String date = format.format(userInfo.getBirthday());
-//        userInfo.setBirthday(date);
-       if(personalService.updateEmplForAdmin(userInfo)==1)
-       {
-           return JSON.ok();
-       }
-      return JSON.errorMsg("修改失败");
-    }
 
-    //管理员删除员工信息
-    @RequestMapping(value = "/adminDelete",method = {RequestMethod.POST})
+    //管理员拉取待审核信息
+    @RequestMapping(value = "/getCheck",method = {RequestMethod.POST})
     @ResponseBody
-    public JSON adminDelete(UserInfo userInfo){
-        if(personalService.deleteEmplForAdmin(userInfo)==1){
-            return JSON.ok();
-        }
-        return JSON.errorMsg("删除失败！");
+    public JSON getCheck(){
 
-    }
-
-    //管理员查询员工信息
-    @RequestMapping(value = "/adminSearch",method = {RequestMethod.POST})
-    @ResponseBody
-    public JSON adminSearch(UserInfo userInfo,String flag){
-        System.out.println(userInfo.getUserId());
-        System.out.println(userInfo.getUserName());
-        List<UserInfo> list = personalService.searchEmplForAdmin(userInfo,flag);
-        return JSON.ok(list);
+        return JSON.ok();
     }
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface LeaveRecordMapper {
+
+
     int countByExample(LeaveRecordExample example);
 
     int deleteByExample(LeaveRecordExample example);
