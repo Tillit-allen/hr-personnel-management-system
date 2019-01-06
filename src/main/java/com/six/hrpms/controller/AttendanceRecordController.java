@@ -35,7 +35,7 @@ public class AttendanceRecordController {
      * @return
      */
     @RequestMapping(value = "/selectAttendanceRecord")
-    public String selectOneAttendanceRecord() {
+    public String selectOneAttendanceRecord(HttpSession session) {
         return "attendance/AttendanceRecordList";
     }
 
@@ -62,8 +62,8 @@ public class AttendanceRecordController {
 
     @RequestMapping("/getAttendanceRecordListWithAdmin")
     @ResponseBody
-    public JSON getAttendanceRecordListWithAdmin(AttendanceRecord attendanceRecord,
-                                                 HttpSession session, java.sql.Date datetime, Integer pageNum, Integer pageSize) {
+    public JSON getAttendanceRecordListWithAdmin(HttpSession session,AttendanceRecord attendanceRecord,
+                                                  java.sql.Date datetime, Integer pageNum, Integer pageSize) {
 
         Date datetime1 = new Date();
         datetime1 = datetime;
@@ -92,7 +92,7 @@ public class AttendanceRecordController {
      * @return
      */
     @RequestMapping(value = "/getStatus")
-    public String getStatus(Model model, AttendanceRecord attendanceRecord, HttpSession session) {
+    public String getStatus(HttpSession session,Model model, AttendanceRecord attendanceRecord) {
         User u = (User) session.getAttribute("user");
         attendanceRecord.setUserId(u.getUserId());
         Date now1 = new Date();//获取现在时间
@@ -122,7 +122,7 @@ public class AttendanceRecordController {
      * @param attendanceRecord
      */
     @RequestMapping(value = "/insertAttendanceRecord1")
-    public String insertAttendanceRecord1(Model model, AttendanceRecord attendanceRecord, HttpSession session) {
+    public String insertAttendanceRecord1(HttpSession session,Model model, AttendanceRecord attendanceRecord) {
         User u = (User) session.getAttribute("user");//获取用户信息
         attendanceRecord.setUserId(u.getUserId());
         Integer time;   // 判断是否迟到
@@ -205,7 +205,7 @@ public class AttendanceRecordController {
      * @return
      */
     @RequestMapping(value = "/getAllAttendanceRecordList")
-    public String selectAllAttendanceRecordWithAdmin() {
+    public String selectAllAttendanceRecordWithAdmin(HttpSession session) {
         return "attendance/AttendanceRecordList1";
     }
     /**
