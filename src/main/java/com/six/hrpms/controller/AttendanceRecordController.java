@@ -205,7 +205,7 @@ public class AttendanceRecordController {
      * @return
      */
     @RequestMapping(value = "/getAllAttendanceRecordList")
-    public String selectAllAttendanceRecord() {
+    public String selectAllAttendanceRecordWithAdmin() {
         return "attendance/AttendanceRecordList1";
     }
     /**
@@ -216,7 +216,7 @@ public class AttendanceRecordController {
      */
     @RequestMapping("/getAllAttendanceRecordList1")
     @ResponseBody
-    public JSON getAllAttendanceRecordList(HttpSession session, Integer pageNum, Integer pageSize) {
+    public JSON getAllAttendanceRecordListWithAdmin(HttpSession session, Integer pageNum, Integer pageSize) {
 
         PageHelper.startPage(pageNum, pageSize);
         List<AttendanceRecord> attendanceRecordList = attendanceRecordService.findAllAttendanceRecordList();
@@ -228,7 +228,7 @@ public class AttendanceRecordController {
 
     @RequestMapping("/getAllAttendanceRecordList2")
     @ResponseBody
-    public JSON getAllAttendanceRecordList1(HttpSession session, java.sql.Date datetime, String userId, Integer pageNum, Integer pageSize) {
+    public JSON getAllAttendanceRecordList1WithAdmin(HttpSession session, java.sql.Date datetime, String userId, Integer pageNum, Integer pageSize) {
 
         Date datetime1 = new Date();
         datetime1 = datetime;
