@@ -97,21 +97,13 @@
             <li ><a onclick=toPage("employee/checkAddEmployee")><span class="fa fa-caret-right"></span> 管理员校验</a></li>
         </ul></li>
 
-        <li data-popover="true" data-content="Items in this group require a <strong><a href='http://portnine.com/bootstrap-themes/aircraft' target='blank'>premium license</a><strong>." rel="popover" data-placement="right"><a href="#" data-target=".premium-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-fighter-jet"></i> 考勤管理<i class="fa fa-collapse"></i></a></li>
+        <li data-popover="true" data-content="Items in this group require a <strong><a href='http://portnine.com/bootstrap-themes/aircraft' target='blank'>premium license</a><strong>."
+            rel="popover" data-placement="right"><a href="#" data-target=".premium-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-fighter-jet">
+        </i> 考勤管理<i class="fa fa-collapse"></i></a></li>
         <li><ul class="premium-menu nav nav-list collapse">
-            <li class="visible-xs visible-sm"><a href="#">- Premium features require a license -</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Enhanced Profile</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Blog</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Blog Page</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Pricing Tables</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Upgrade Account</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Widgets</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Activity Timeline</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Enhanced Users List</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Enhanced Media</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Invoice</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Advanced Tools</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Additional Color Themes</a></li>
+            <li ><a onclick=toPage("attendance/addAttendanceRecord")><span class="fa fa-caret-right"></span> 签到</a></li>
+            <li ><a onclick=toPage("attendance/AttendanceRecordList")><span class="fa fa-caret-right"></span> 查询个人签到记录</a></li>
+            <li ><a onclick=toPage("attendance/AttendanceRecordList1")><span class="fa fa-caret-right"></span> 管理员查询签到记录</a></li>
         </ul></li>
 
         <li><a href="#" data-target=".accounts-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-briefcase"></i> 加班申请<i class="fa fa-collapse"></i></a></li>
