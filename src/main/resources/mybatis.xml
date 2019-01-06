@@ -17,4 +17,11 @@
         指定包名，mybatis会自动扫描指定包名中的类自动定义别名，别名就是类名（首字母大小写都可以）-->
         <package name="com.six.hrpms.pojo"/>
     </typeAliases>
+
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--分页参数合理化  -->
+            <property name="reasonable" value="true"/>
+        </plugin>
+    </plugins>
 </configuration>
