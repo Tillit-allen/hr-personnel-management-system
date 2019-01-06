@@ -19,6 +19,7 @@
 <body>
 <div id="list_zone">
     <button @click="doSearch">查询</button>
+    <button @click="doSalary">发工资</button>
     <el-table
             :data="tableData"
             style="width: 100%">
@@ -61,14 +62,18 @@
                 prop="homePlace"
                 label="地址">
         </el-table-column>
-
+        <el-table-column
+                prop="isAdministrator"
+                label="用户等级"
+                width="100">
+        </el-table-column>
         <el-table-column
                 fixed="right"
                 label="操作"
                 width="100">
             <template slot-scope="scope">
-                <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
-                <el-button type="text" size="small">删除</el-button>
+                <el-button @click="doEdit(scope.row)" type="text" size="small">编辑</el-button>
+                <el-button type="text" size="small" @click="doDel(scope.row)">删除</el-button>
             </template>
         </el-table-column>
     </el-table>
@@ -80,20 +85,42 @@
             tableData:[]
         },
         methods:{
-            doDel:function () {
-
+            doDel:function (row) {
+                if(confirm("是否确定删除本记录(注：此处删除系统数据库也会删除对应信息)")){
+                 $.ajax({
+                     url:"/userInfo/adminDelete",
+                     data:{
+                         userId:row.userId
+                     },
+                     type:"post",
+                     dataType: "json",
+                     success:function (res) {
+                         if(res.status==200){
+                             alert("删除成功！");
+                             location.reload();
+                         }
+                     },
+                     error:function () {
+                         alert("服务器错误呀");
+                     }
+                 })   
+                }
             },
-            doEdit:function () {
-
+            doEdit:function (row) {
+                // alert(row.userId);
+                window.location="/userInfo/toChange?userId="+row.userId
             },
             doSearch:function () {
+                window.location="/toPage?page=employee/SearchEmployee";
+            },
+            doSalary:function () {
 
             }
         },
         mounted:function () {
             const this_ = this;
             $.ajax({
-                url:"${pageContext.request.contextPath}/getAllEmployee",
+                url:"${pageContext.request.contextPath}/userInfo/getAllEmployee",
                 data:{
 
                 },

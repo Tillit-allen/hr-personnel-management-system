@@ -64,12 +64,66 @@
                 label="操作"
                 width="100">
             <template slot-scope="scope">
-                <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
-                <el-button type="text" size="small">删除</el-button>
+                <el-button @click="doPass(scope.row)" type="text" size="small">通过</el-button>
+                <el-button type="text" size="small" @click="doRefuse(scope.row)">拒绝</el-button>
             </template>
         </el-table-column>
     </el-table>
 </div>
+<script>
+    new Vue({
+        el:"#check_zone",
+        data:{
+            tableData:[],
+        },
+        methods:{
+            doPass:function (row) {
+                if(confirm("是否设为管理员?")){
+                    this.doDo("true",row);
+                }else{
+                    this.doDo("false",row);
+                }
+            },
+            doRefuse:function (row) {
 
+            },
+            doDo:function (flag,row) {
+                $.ajax({
+                    url:"/userInfo/adminCheck",
+                    data:{
+                        flag:flag,
+                        userId:row.userId
+                    },
+                    type:"post",
+                    dataType:"json",
+                    success:function (res) {
+                        console.log(res);
+                    },
+                    error:function () {
+                        alert(11111);
+                    }
+                })
+            }
+        },
+        mounted:function () {
+            const this_ = this;
+            $.ajax({
+                url:"/userInfo/getUnActiveEmployee",
+                data:{
+
+                },
+                type:"post",
+                dataType:"json",
+                success:function (res) {
+                    this_.tableData = res.data;
+                    console.log(res);
+                },
+                error:function () {
+
+                }
+            })
+        }
+    })
+</script>
 </body>
 </html>

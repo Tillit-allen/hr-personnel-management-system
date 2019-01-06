@@ -1,5 +1,7 @@
 package com.six.hrpms.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class UserInfo {
@@ -73,6 +75,7 @@ public class UserInfo {
         this.marriage = marriage == null ? null : marriage.trim();
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     public Date getBirthday() {
         return birthday;
     }

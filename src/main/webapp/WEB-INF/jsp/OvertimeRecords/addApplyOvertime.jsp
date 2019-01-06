@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>初始化员工信息</title>
+    <title>请假申请</title>
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -39,40 +39,38 @@
             <div class="tab-pane active in" id="home">
                 <form id="tab">
                     <div class="form-group">
-                        <label>员工编号</label>
-                        <input type="text" placeholder="userId" class="form-control" v-model="userId"/>
+
+                        <input type="text" placeholder="员工编号" class="form-control" v-model="id"/>
                     </div>
                     <div class="form-group">
-                        <label>员工姓名</label>
-                        <input type="text" placeholder="userName" class="form-control" v-model="userName"/>
+
+                        <input type="text" placeholder="员工姓名" class="form-control" v-model="user_id"/>
                     </div>
+
+
                     <div class="form-group">
-                        <label>性别</label>
-                        &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="sex" value="男" checked v-model="sex"/>男
-                        &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="sex" value="女" v-model="sex"/>女
-                    </div>
-                    <div class="form-group">
-                        <label>登陆账号</label>
-                        <input type="text" placeholder="userName" class="form-control" v-model="loginName"/>
-                    </div>
-                    <div class="form-group">
-                        <label>初始密码</label>
-                        <input type="text" class="form-control" disabled v-model="passWord"/>
+
+                        <input type="text" placeholder="开始时间" class="form-control" v-model="start_time"/>
                     </div>
 
                     <div class="form-group">
-                        <label>直属上司</label>
-                        <input type="text" placeholder="bossName" class="form-control" v-model="bossName"/>
+
+                        <input type="text" placeholder="结束时间" class="form-control" v-model="end_time"/>
                     </div>
 
                     <div class="form-group">
-                        <label>初始薪资</label>
-                        <input type="text" placeholder="basicSalary" class="form-control" v-model="basicSalary"/>
+
+                        <input type="text" placeholder="地点" class="form-control" v-model="place"/>
+                    </div>
+
+                    <div class="form-group">
+
+                        <input type="text" placeholder="审核状态" class="form-control" v-model="audit_status"/>
                     </div>
                 </form>
             </div>
             <div class="btn-toolbar list-toolbar">
-                <button class="btn btn-primary" @click="doSubmit"><i class="fa fa-save"></i> 提交</button>
+                <button class="btn btn-primary" @click="doSubmit" type="button"><i class="fa fa-save"></i> 提交</button>
                 <a data-toggle="modal" class="btn btn-danger" @click="doRes">重置</a>
             </div>
         </div>
@@ -84,46 +82,58 @@
     new Vue({
         el: "#init_zone",
         data: {
-            userId: "",
-            userName: "",
-            loginName: "",
-            passWord: "123456",
-            sex: "",
-            bossName: "",
-            basicSalary: "",
+            id: "",
+            user_id: "",
+            start_time: "",
+            end_time: "",
+            place: "",
+            audit_status: "",
+
         },
         methods: {
             doSubmit: function () {
                 $.ajax({
-                    url: "/userInfo/addEmployee",
+                    url: "${pageContext.request.contextPath}/overTime/addOvertimeRecords",
                     data: {
-                        id: this.userId,
-                        name: this.userName,
-                        sex:this.sex,
-                        loginName:this.loginName,
-                        password:this.passWord,
-                        boss:this.bossName,
-                        basemoney:this.basicSalary
-                        },
+                        id: this.id,
+                        userId: this.user_id,
+                        startTime:this.start_time,
+                        endTime:this.end_time,
+                        place:this.place,
+                        auditStatus:this.audit_status
+
+                    },
                     type:"post",
                     dataType: "json",
                     success: function (res) {
-                        if(res.status==200){
-                            alert("初始化完成!");
-                        }else{
-                            alert("初始化失败!");
-                        }
-                    console.log(res);
-                },
-                error:function () {
-                    alert("服务器错误！");
-                }
-            })
+                        console.log(res);
+                    },
+                    error:function () {
+                        alert(1);
+                    }
+                })
             },
             doRes: function () {
-                location.reload();
+
             },
         },
+        mounted: function () {
+            const this_ = this;
+            // $.ajax({
+            //     url: "",
+            //     data: {},
+            //     type: "post",
+            //     dataType: "json",
+            //     success: function (res) {
+            //         this_.tableData = res.data;
+            //         console.log(res);
+            //     },
+            //     error: function () {
+            //
+            //     }
+            // })
+        }
+
     })
 </script>
 </body>
