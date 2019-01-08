@@ -189,6 +189,56 @@ public class DateAndStringTransform {
     }
 
     /**
+     * 判断时间是否在某个时间段之间
+     *
+     * @param when  被判断的时间
+     * @param start 开始时间,格式(\d{2}:\d{2}),例如: "6:00"
+     * @param end   结束时间,格式(\d{2}:\d{2}),例如: "19:00"
+     * @return 成功:
+     *              1:早于等于start
+     *              2:在start和end之间
+     *              3:晚于等于end
+     *         失败:
+     *              -1:start 晚于 end
+     *              null: 参数为空
+     * @throws RuntimeException start或end格式不正确
+     */
+    public static Integer judgmentPeriod1(Date when, String start, String end) {
+
+        //参数合理性判断开始
+        if (when == null || start == null || end == null) {
+            return null;
+        }
+        String regex = "\\d{2}:\\d{2}";
+        if (!Pattern.matches(regex, start) || !Pattern.matches(regex, end)) {
+            //start和end格式不正确
+            new RuntimeException("时间段格式不正确!!!,start=" + start + "\tend=" + end);
+        }
+        //参数合理性判断结束
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+
+        Date whenDate = null;
+        Date startDate = null;
+        Date endDate = null;
+        try {
+            when = simpleDateFormat.parse(simpleDateFormat.format(when));
+            startDate = simpleDateFormat.parse(start);
+            endDate = simpleDateFormat.parse(end);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (when.getTime() == startDate.getTime()){
+            return 1;
+        }
+        if (when.getTime() == endDate.getTime()){
+            return 3;
+        }
+
+        return belongCalender(when,startDate,endDate);
+    }
+
+    /**
      * 判断when是否在start和end之间
      *
      * @param when  被判断的时间

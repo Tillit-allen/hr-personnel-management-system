@@ -414,6 +414,426 @@ public class SalaryRecordExample {
             addCriterion("salary not between", value1, value2, "salary");
             return (Criteria) this;
         }
+
+        public Criteria andWorkTimeIsNull() {
+            addCriterion("work_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkTimeIsNotNull() {
+            addCriterion("work_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkTimeEqualTo(Double value) {
+            addCriterion("work_time =", value, "workTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkTimeNotEqualTo(Double value) {
+            addCriterion("work_time <>", value, "workTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkTimeGreaterThan(Double value) {
+            addCriterion("work_time >", value, "workTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkTimeGreaterThanOrEqualTo(Double value) {
+            addCriterion("work_time >=", value, "workTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkTimeLessThan(Double value) {
+            addCriterion("work_time <", value, "workTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkTimeLessThanOrEqualTo(Double value) {
+            addCriterion("work_time <=", value, "workTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkTimeIn(List<Double> values) {
+            addCriterion("work_time in", values, "workTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkTimeNotIn(List<Double> values) {
+            addCriterion("work_time not in", values, "workTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkTimeBetween(Double value1, Double value2) {
+            addCriterion("work_time between", value1, value2, "workTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWorkTimeNotBetween(Double value1, Double value2) {
+            addCriterion("work_time not between", value1, value2, "workTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLateTimeIsNull() {
+            addCriterion("late_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLateTimeIsNotNull() {
+            addCriterion("late_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLateTimeEqualTo(Double value) {
+            addCriterion("late_time =", value, "lateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLateTimeNotEqualTo(Double value) {
+            addCriterion("late_time <>", value, "lateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLateTimeGreaterThan(Double value) {
+            addCriterion("late_time >", value, "lateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLateTimeGreaterThanOrEqualTo(Double value) {
+            addCriterion("late_time >=", value, "lateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLateTimeLessThan(Double value) {
+            addCriterion("late_time <", value, "lateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLateTimeLessThanOrEqualTo(Double value) {
+            addCriterion("late_time <=", value, "lateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLateTimeIn(List<Double> values) {
+            addCriterion("late_time in", values, "lateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLateTimeNotIn(List<Double> values) {
+            addCriterion("late_time not in", values, "lateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLateTimeBetween(Double value1, Double value2) {
+            addCriterion("late_time between", value1, value2, "lateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLateTimeNotBetween(Double value1, Double value2) {
+            addCriterion("late_time not between", value1, value2, "lateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveEarlyTimeIsNull() {
+            addCriterion("leave_early_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveEarlyTimeIsNotNull() {
+            addCriterion("leave_early_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveEarlyTimeEqualTo(Double value) {
+            addCriterion("leave_early_time =", value, "leaveEarlyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveEarlyTimeNotEqualTo(Double value) {
+            addCriterion("leave_early_time <>", value, "leaveEarlyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveEarlyTimeGreaterThan(Double value) {
+            addCriterion("leave_early_time >", value, "leaveEarlyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveEarlyTimeGreaterThanOrEqualTo(Double value) {
+            addCriterion("leave_early_time >=", value, "leaveEarlyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveEarlyTimeLessThan(Double value) {
+            addCriterion("leave_early_time <", value, "leaveEarlyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveEarlyTimeLessThanOrEqualTo(Double value) {
+            addCriterion("leave_early_time <=", value, "leaveEarlyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveEarlyTimeIn(List<Double> values) {
+            addCriterion("leave_early_time in", values, "leaveEarlyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveEarlyTimeNotIn(List<Double> values) {
+            addCriterion("leave_early_time not in", values, "leaveEarlyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveEarlyTimeBetween(Double value1, Double value2) {
+            addCriterion("leave_early_time between", value1, value2, "leaveEarlyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveEarlyTimeNotBetween(Double value1, Double value2) {
+            addCriterion("leave_early_time not between", value1, value2, "leaveEarlyTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessTimeIsNull() {
+            addCriterion("business_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessTimeIsNotNull() {
+            addCriterion("business_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessTimeEqualTo(Double value) {
+            addCriterion("business_time =", value, "businessTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessTimeNotEqualTo(Double value) {
+            addCriterion("business_time <>", value, "businessTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessTimeGreaterThan(Double value) {
+            addCriterion("business_time >", value, "businessTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessTimeGreaterThanOrEqualTo(Double value) {
+            addCriterion("business_time >=", value, "businessTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessTimeLessThan(Double value) {
+            addCriterion("business_time <", value, "businessTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessTimeLessThanOrEqualTo(Double value) {
+            addCriterion("business_time <=", value, "businessTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessTimeIn(List<Double> values) {
+            addCriterion("business_time in", values, "businessTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessTimeNotIn(List<Double> values) {
+            addCriterion("business_time not in", values, "businessTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessTimeBetween(Double value1, Double value2) {
+            addCriterion("business_time between", value1, value2, "businessTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessTimeNotBetween(Double value1, Double value2) {
+            addCriterion("business_time not between", value1, value2, "businessTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessMoneyIsNull() {
+            addCriterion("business_money is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessMoneyIsNotNull() {
+            addCriterion("business_money is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessMoneyEqualTo(Double value) {
+            addCriterion("business_money =", value, "businessMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessMoneyNotEqualTo(Double value) {
+            addCriterion("business_money <>", value, "businessMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessMoneyGreaterThan(Double value) {
+            addCriterion("business_money >", value, "businessMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessMoneyGreaterThanOrEqualTo(Double value) {
+            addCriterion("business_money >=", value, "businessMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessMoneyLessThan(Double value) {
+            addCriterion("business_money <", value, "businessMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessMoneyLessThanOrEqualTo(Double value) {
+            addCriterion("business_money <=", value, "businessMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessMoneyIn(List<Double> values) {
+            addCriterion("business_money in", values, "businessMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessMoneyNotIn(List<Double> values) {
+            addCriterion("business_money not in", values, "businessMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessMoneyBetween(Double value1, Double value2) {
+            addCriterion("business_money between", value1, value2, "businessMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andBusinessMoneyNotBetween(Double value1, Double value2) {
+            addCriterion("business_money not between", value1, value2, "businessMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeTimeIsNull() {
+            addCriterion("overtime_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeTimeIsNotNull() {
+            addCriterion("overtime_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeTimeEqualTo(Double value) {
+            addCriterion("overtime_time =", value, "overtimeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeTimeNotEqualTo(Double value) {
+            addCriterion("overtime_time <>", value, "overtimeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeTimeGreaterThan(Double value) {
+            addCriterion("overtime_time >", value, "overtimeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeTimeGreaterThanOrEqualTo(Double value) {
+            addCriterion("overtime_time >=", value, "overtimeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeTimeLessThan(Double value) {
+            addCriterion("overtime_time <", value, "overtimeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeTimeLessThanOrEqualTo(Double value) {
+            addCriterion("overtime_time <=", value, "overtimeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeTimeIn(List<Double> values) {
+            addCriterion("overtime_time in", values, "overtimeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeTimeNotIn(List<Double> values) {
+            addCriterion("overtime_time not in", values, "overtimeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeTimeBetween(Double value1, Double value2) {
+            addCriterion("overtime_time between", value1, value2, "overtimeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOvertimeTimeNotBetween(Double value1, Double value2) {
+            addCriterion("overtime_time not between", value1, value2, "overtimeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveTimeIsNull() {
+            addCriterion("leave_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveTimeIsNotNull() {
+            addCriterion("leave_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveTimeEqualTo(Double value) {
+            addCriterion("leave_time =", value, "leaveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveTimeNotEqualTo(Double value) {
+            addCriterion("leave_time <>", value, "leaveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveTimeGreaterThan(Double value) {
+            addCriterion("leave_time >", value, "leaveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveTimeGreaterThanOrEqualTo(Double value) {
+            addCriterion("leave_time >=", value, "leaveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveTimeLessThan(Double value) {
+            addCriterion("leave_time <", value, "leaveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveTimeLessThanOrEqualTo(Double value) {
+            addCriterion("leave_time <=", value, "leaveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveTimeIn(List<Double> values) {
+            addCriterion("leave_time in", values, "leaveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveTimeNotIn(List<Double> values) {
+            addCriterion("leave_time not in", values, "leaveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveTimeBetween(Double value1, Double value2) {
+            addCriterion("leave_time between", value1, value2, "leaveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLeaveTimeNotBetween(Double value1, Double value2) {
+            addCriterion("leave_time not between", value1, value2, "leaveTime");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
