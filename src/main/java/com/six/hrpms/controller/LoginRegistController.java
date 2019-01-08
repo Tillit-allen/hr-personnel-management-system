@@ -32,7 +32,8 @@ public class LoginRegistController {
         if(u!=null){
                 userInfo = userInfoMapper.selectByPrimaryKey(u.getUserId());
                 session.setMaxInactiveInterval(30*60);
-                session.setAttribute("user",userInfo);
+                session.setAttribute("user",u);
+                session.setAttribute("userInfo",userInfo);
                 session.setAttribute("sessionid",session.getId());
             return JSON.ok();
         }else {
@@ -44,7 +45,7 @@ public class LoginRegistController {
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session){
         session.invalidate();
-        return "/main";
+        return "loginRegister/Login";
     }
 }
 

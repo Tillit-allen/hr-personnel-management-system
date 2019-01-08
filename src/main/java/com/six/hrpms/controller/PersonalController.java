@@ -46,7 +46,7 @@ public class PersonalController {
     * */
     @RequestMapping(value = "/getAllEmployee",method = {RequestMethod.POST})
     @ResponseBody
-    public JSON getAllEmployee(String pageNum){
+    public JSON getAllEmployeeAdmin(HttpSession session,String pageNum){
         //分页
         int pagenum = 1;
         if(!pageNum.equals("")){
@@ -80,7 +80,7 @@ public class PersonalController {
     * */
     @RequestMapping(value = "/addEmployee",method = {RequestMethod.POST})
     @ResponseBody
-    public JSON addEmployeeForAdmin(AddminAddEmployee_po addminAddEmployee_po){
+    public JSON addEmployeeForAdmin(HttpSession session,AddminAddEmployee_po addminAddEmployee_po){
         userInfo.setUserName(addminAddEmployee_po.getName());
         userInfo.setSex((addminAddEmployee_po.getSex()));
         userInfo.setBasicSalary(addminAddEmployee_po.getBasemoney());
@@ -141,7 +141,7 @@ public class PersonalController {
     * */
     @RequestMapping(value = "/adminCheck",method = {RequestMethod.POST})
     @ResponseBody
-    public JSON checkEmploy(UserInfo userInfo,String flag){
+    public JSON checkEmployAdmin(HttpSession session,UserInfo userInfo,String flag){
         if(flag.equals("true")){
             userInfo.setIsAdministrator(3);
         }else if(flag.equals("false"))
@@ -163,7 +163,7 @@ public class PersonalController {
     //管理员编辑员工信息
     @RequestMapping(value = "/adminModify",method = {RequestMethod.POST})
     @ResponseBody
-    public JSON adminModify(UserInfo userInfo){
+    public JSON adminModifyAdmin(HttpSession session,UserInfo userInfo){
 //        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 //        String date = format.format(userInfo.getBirthday());
 //        userInfo.setBirthday(date);
@@ -177,7 +177,7 @@ public class PersonalController {
     //管理员删除员工信息
     @RequestMapping(value = "/adminDelete",method = {RequestMethod.POST})
     @ResponseBody
-    public JSON adminDelete(UserInfo userInfo){
+    public JSON adminDeleteAdmin(HttpSession session,UserInfo userInfo){
         if(personalService.deleteEmplForAdmin(userInfo)==1){
             return JSON.ok();
         }
@@ -188,7 +188,7 @@ public class PersonalController {
     //管理员查询员工信息
     @RequestMapping(value = "/adminSearch",method = {RequestMethod.POST})
     @ResponseBody
-    public JSON adminSearch(UserInfo userInfo,String flag){
+    public JSON adminSearchAdmin(HttpSession session,UserInfo userInfo,String flag){
         System.out.println(userInfo.getUserId());
         System.out.println(userInfo.getUserName());
         List<UserInfo> list = personalService.searchEmplForAdmin(userInfo,flag);

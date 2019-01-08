@@ -237,6 +237,9 @@
                 dataType:"json",
                 success:function (res) {
                     this_.tableData = res.data.list;
+                    this_.total = res.data.total;
+                    this_.lastPage = res.data.pages;
+                    this_.pageNum = res.data.pageNum;
                     console.log(res);
                 },
                 error:function () {
