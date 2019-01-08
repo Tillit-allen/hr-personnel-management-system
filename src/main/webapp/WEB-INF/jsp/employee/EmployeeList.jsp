@@ -62,7 +62,11 @@
                 prop="homePlace"
                 label="地址">
         </el-table-column>
-
+        <el-table-column
+                prop="isAdministrator"
+                label="用户等级"
+                width="100">
+        </el-table-column>
         <el-table-column
                 fixed="right"
                 label="操作"
@@ -81,14 +85,33 @@
             tableData:[]
         },
         methods:{
-            doDel:function () {
-
+            doDel:function (row) {
+                if(confirm("是否确定删除本记录(注：此处删除系统数据库也会删除对应信息)")){
+                 $.ajax({
+                     url:"/userInfo/adminDelete",
+                     data:{
+                         userId:row.userId
+                     },
+                     type:"post",
+                     dataType: "json",
+                     success:function (res) {
+                         if(res.status==200){
+                             alert("删除成功！");
+                             location.reload();
+                         }
+                     },
+                     error:function () {
+                         alert("服务器错误呀");
+                     }
+                 })   
+                }
             },
-            doEdit:function () {
-
+            doEdit:function (row) {
+                // alert(row.userId);
+                window.location="/userInfo/toChange?userId="+row.userId
             },
             doSearch:function () {
-
+                window.location="/toPage?page=employee/SearchEmployee";
             },
             doSalary:function () {
 

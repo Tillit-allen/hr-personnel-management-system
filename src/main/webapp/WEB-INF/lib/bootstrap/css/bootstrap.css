@@ -1404,12 +1404,17 @@ table {
   max-width: 100%;
   background-color: transparent;
 }
+
 th {
   text-align: left;
 }
 .table {
   width: 100%;
   margin-bottom: 20px;
+}
+.table tbody tr:hover{
+  background-color: #e5e5e5;
+  cursor: pointer;
 }
 .table > thead > tr > th,
 .table > tbody > tr > th,

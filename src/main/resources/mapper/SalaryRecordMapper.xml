@@ -7,6 +7,13 @@
     <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
     <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
     <result column="salary" property="salary" jdbcType="DOUBLE" />
+    <result column="work_time" property="workTime" jdbcType="DOUBLE" />
+    <result column="late_time" property="lateTime" jdbcType="DOUBLE" />
+    <result column="leave_early_time" property="leaveEarlyTime" jdbcType="DOUBLE" />
+    <result column="business_time" property="businessTime" jdbcType="DOUBLE" />
+    <result column="business_money" property="businessMoney" jdbcType="DOUBLE" />
+    <result column="overtime_time" property="overtimeTime" jdbcType="DOUBLE" />
+    <result column="leave_time" property="leaveTime" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id, start_time, end_time, salary
+    id, user_id, start_time, end_time, salary, work_time, late_time, leave_early_time, 
+    business_time, business_money, overtime_time, leave_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.six.hrpms.pojo.SalaryRecordExample" >
     select
@@ -101,9 +109,15 @@
   </delete>
   <insert id="insert" parameterType="com.six.hrpms.pojo.SalaryRecord" >
     insert into salary_record (id, user_id, start_time, 
-      end_time, salary)
+      end_time, salary, work_time, 
+      late_time, leave_early_time, business_time, 
+      business_money, overtime_time, leave_time
+      )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP}, #{salary,jdbcType=DOUBLE})
+      #{endTime,jdbcType=TIMESTAMP}, #{salary,jdbcType=DOUBLE}, #{workTime,jdbcType=DOUBLE}, 
+      #{lateTime,jdbcType=DOUBLE}, #{leaveEarlyTime,jdbcType=DOUBLE}, #{businessTime,jdbcType=DOUBLE}, 
+      #{businessMoney,jdbcType=DOUBLE}, #{overtimeTime,jdbcType=DOUBLE}, #{leaveTime,jdbcType=DOUBLE}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.six.hrpms.pojo.SalaryRecord" >
     insert into salary_record
@@ -123,6 +137,27 @@
       <if test="salary != null" >
         salary,
       </if>
+      <if test="workTime != null" >
+        work_time,
+      </if>
+      <if test="lateTime != null" >
+        late_time,
+      </if>
+      <if test="leaveEarlyTime != null" >
+        leave_early_time,
+      </if>
+      <if test="businessTime != null" >
+        business_time,
+      </if>
+      <if test="businessMoney != null" >
+        business_money,
+      </if>
+      <if test="overtimeTime != null" >
+        overtime_time,
+      </if>
+      <if test="leaveTime != null" >
+        leave_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -139,6 +174,27 @@
       </if>
       <if test="salary != null" >
         #{salary,jdbcType=DOUBLE},
+      </if>
+      <if test="workTime != null" >
+        #{workTime,jdbcType=DOUBLE},
+      </if>
+      <if test="lateTime != null" >
+        #{lateTime,jdbcType=DOUBLE},
+      </if>
+      <if test="leaveEarlyTime != null" >
+        #{leaveEarlyTime,jdbcType=DOUBLE},
+      </if>
+      <if test="businessTime != null" >
+        #{businessTime,jdbcType=DOUBLE},
+      </if>
+      <if test="businessMoney != null" >
+        #{businessMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="overtimeTime != null" >
+        #{overtimeTime,jdbcType=DOUBLE},
+      </if>
+      <if test="leaveTime != null" >
+        #{leaveTime,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -166,6 +222,27 @@
       <if test="record.salary != null" >
         salary = #{record.salary,jdbcType=DOUBLE},
       </if>
+      <if test="record.workTime != null" >
+        work_time = #{record.workTime,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lateTime != null" >
+        late_time = #{record.lateTime,jdbcType=DOUBLE},
+      </if>
+      <if test="record.leaveEarlyTime != null" >
+        leave_early_time = #{record.leaveEarlyTime,jdbcType=DOUBLE},
+      </if>
+      <if test="record.businessTime != null" >
+        business_time = #{record.businessTime,jdbcType=DOUBLE},
+      </if>
+      <if test="record.businessMoney != null" >
+        business_money = #{record.businessMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.overtimeTime != null" >
+        overtime_time = #{record.overtimeTime,jdbcType=DOUBLE},
+      </if>
+      <if test="record.leaveTime != null" >
+        leave_time = #{record.leaveTime,jdbcType=DOUBLE},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +254,14 @@
       user_id = #{record.userId,jdbcType=VARCHAR},
       start_time = #{record.startTime,jdbcType=TIMESTAMP},
       end_time = #{record.endTime,jdbcType=TIMESTAMP},
-      salary = #{record.salary,jdbcType=DOUBLE}
+      salary = #{record.salary,jdbcType=DOUBLE},
+      work_time = #{record.workTime,jdbcType=DOUBLE},
+      late_time = #{record.lateTime,jdbcType=DOUBLE},
+      leave_early_time = #{record.leaveEarlyTime,jdbcType=DOUBLE},
+      business_time = #{record.businessTime,jdbcType=DOUBLE},
+      business_money = #{record.businessMoney,jdbcType=DOUBLE},
+      overtime_time = #{record.overtimeTime,jdbcType=DOUBLE},
+      leave_time = #{record.leaveTime,jdbcType=DOUBLE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +281,27 @@
       <if test="salary != null" >
         salary = #{salary,jdbcType=DOUBLE},
       </if>
+      <if test="workTime != null" >
+        work_time = #{workTime,jdbcType=DOUBLE},
+      </if>
+      <if test="lateTime != null" >
+        late_time = #{lateTime,jdbcType=DOUBLE},
+      </if>
+      <if test="leaveEarlyTime != null" >
+        leave_early_time = #{leaveEarlyTime,jdbcType=DOUBLE},
+      </if>
+      <if test="businessTime != null" >
+        business_time = #{businessTime,jdbcType=DOUBLE},
+      </if>
+      <if test="businessMoney != null" >
+        business_money = #{businessMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="overtimeTime != null" >
+        overtime_time = #{overtimeTime,jdbcType=DOUBLE},
+      </if>
+      <if test="leaveTime != null" >
+        leave_time = #{leaveTime,jdbcType=DOUBLE},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -205,7 +310,14 @@
     set user_id = #{userId,jdbcType=VARCHAR},
       start_time = #{startTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP},
-      salary = #{salary,jdbcType=DOUBLE}
+      salary = #{salary,jdbcType=DOUBLE},
+      work_time = #{workTime,jdbcType=DOUBLE},
+      late_time = #{lateTime,jdbcType=DOUBLE},
+      leave_early_time = #{leaveEarlyTime,jdbcType=DOUBLE},
+      business_time = #{businessTime,jdbcType=DOUBLE},
+      business_money = #{businessMoney,jdbcType=DOUBLE},
+      overtime_time = #{overtimeTime,jdbcType=DOUBLE},
+      leave_time = #{leaveTime,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -34,6 +34,11 @@
         .sidebar-nav{
             width:14%;
         }
+        #title{
+            margin-left:200px;
+            margin-top:100px;
+            text-align: center;
+        }
 
     </style>
 </head>
@@ -92,21 +97,13 @@
             <li ><a onclick=toPage("employee/checkAddEmployee")><span class="fa fa-caret-right"></span> 管理员校验</a></li>
         </ul></li>
 
-        <li data-popover="true" data-content="Items in this group require a <strong><a href='http://portnine.com/bootstrap-themes/aircraft' target='blank'>premium license</a><strong>." rel="popover" data-placement="right"><a href="#" data-target=".premium-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-fighter-jet"></i> 考勤管理<i class="fa fa-collapse"></i></a></li>
+        <li data-popover="true" data-content="Items in this group require a <strong><a href='http://portnine.com/bootstrap-themes/aircraft' target='blank'>premium license</a><strong>."
+            rel="popover" data-placement="right"><a href="#" data-target=".premium-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-fighter-jet">
+        </i> 考勤管理<i class="fa fa-collapse"></i></a></li>
         <li><ul class="premium-menu nav nav-list collapse">
-            <li class="visible-xs visible-sm"><a href="#">- Premium features require a license -</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Enhanced Profile</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Blog</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Blog Page</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Pricing Tables</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Upgrade Account</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Widgets</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Activity Timeline</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Enhanced Users List</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Enhanced Media</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Invoice</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Advanced Tools</a></li>
-            <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Additional Color Themes</a></li>
+            <li ><a onclick=toPage("attendance/addAttendanceRecord")><span class="fa fa-caret-right"></span> 签到</a></li>
+            <li ><a onclick=toPage("attendance/AttendanceRecordList")><span class="fa fa-caret-right"></span> 查询个人签到记录</a></li>
+            <li ><a onclick=toPage("attendance/AttendanceRecordList1")><span class="fa fa-caret-right"></span> 管理员查询签到记录</a></li>
         </ul></li>
 
         <li><a href="#" data-target=".accounts-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-briefcase"></i> 加班申请<i class="fa fa-collapse"></i></a></li>
@@ -128,7 +125,19 @@
         <li><a onclick=toPage("") class="nav-header" target="blank"><i class="fa fa-fw fa-heart"></i> 出差报销</a></li>
     </ul>
 </div></div>
-<iframe src="${pageContext.request.contextPath}/welcome.jsp" style="width:86%;height:500px;float: right;border:none;" id="zone"></iframe>
+<c:choose>
+    <c:when test="${sessionScope.user==null}">
+        <div id="title">
+            <h2 >傻逼玩意登陆去滚滚滚滚</h2>
+            <br/>
+            <span style="color:#aaaaaa">右上角点击登陆</span>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <iframe src="${pageContext.request.contextPath}/welcome.jsp" style="width:86%;height:500px;float: right;border:none;" id="zone"></iframe>
+    </c:otherwise>
+</c:choose>
+
 <script>
     //iframe跳转页面
     function toPage(page) {
