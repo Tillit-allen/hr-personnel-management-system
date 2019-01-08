@@ -111,8 +111,9 @@
 
         <li><a href="#" data-target=".accounts-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-briefcase"></i> 加班申请<i class="fa fa-collapse"></i></a></li>
         <li><ul class="accounts-menu nav nav-list collapse">
-            <li ><a onclick=toPage("OvertimeRecords/addApplyOvertime")><span class="fa fa-caret-right"></span> 请假申请</a></li>
-            <li ><a onclick=toPage("OvertimeRecords/showApplyOvertime")><span class="fa fa-caret-right"></span> 审核状态</a></li>
+            <li ><a onclick=toPage("OvertimeRecords/addApplyOvertime")><span class="fa fa-caret-right"></span> 加班申请</a></li>
+            <li ><a onclick=toPage("OvertimeRecords/showApplyOvertime")><span class="fa fa-caret-right"></span> 我的申请</a></li>
+            <li ><a onclick=toPage("OvertimeRecords/checkAddApplyOvertime")><span class="fa fa-caret-right"></span> 管理员校验</a></li>
 
         </ul></li>
 

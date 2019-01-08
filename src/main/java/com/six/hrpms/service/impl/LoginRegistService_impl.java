@@ -4,7 +4,6 @@ import com.six.hrpms.dao.UserMapper;
 import com.six.hrpms.pojo.User;
 import com.six.hrpms.pojo.UserExample;
 import com.six.hrpms.service.LoginRegisterService;
-import com.zhenzi.sms.ZhenziSmsClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +22,13 @@ public class LoginRegistService_impl implements LoginRegisterService {
     public String sendMes(String phoneNum, String code, HttpServletRequest request, HttpServletResponse response) {
 
         String res = null;
-        ZhenziSmsClient client = new ZhenziSmsClient("https://sms_developer.zhenzikj.com", "100397",
-                "ZmQxZWVkNjYtYWIwMC00YTRjLThiNTUtY2EwYzUyYjE0ODI2");
-        try {
-            res = client.send(phoneNum, "您的验证码为"+code+",欢迎使用本系统！")+client.balance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        ZhenziSmsClient client = new ZhenziSmsClient("https://sms_developer.zhenzikj.com", "100397",
+//                "ZmQxZWVkNjYtYWIwMC00YTRjLThiNTUtY2EwYzUyYjE0ODI2");
+//        try {
+//            res = client.send(phoneNum, "您的验证码为"+code+",欢迎使用本系统！")+client.balance();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         Cookie cookie = new Cookie(phoneNum,code);//把随机数存到cookie里并规定时间只有5分钟
         cookie.setMaxAge(300);

@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: lihang
+  User: liuzixin
   Date: 2018/12/29
   Time: 13:55
   To change this template use File | Settings | File Templates.
@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>请假申请</title>
+    <title>加班申请</title>
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -38,24 +38,25 @@
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane active in" id="home">
                 <form id="tab">
+
                     <div class="form-group">
 
-                        <input type="text" placeholder="员工编号" class="form-control" v-model="id"/>
+                        <input type="text" placeholder="申请编号" class="form-control" v-model="id"/>
                     </div>
                     <div class="form-group">
 
-                        <input type="text" placeholder="员工姓名" class="form-control" v-model="user_id"/>
+                        <input type="text" placeholder="员工编号" class="form-control" v-model="user_id"/>
                     </div>
 
 
                     <div class="form-group">
 
-                        <input type="text" placeholder="开始时间" class="form-control" v-model="start_time"/>
+                        <input type="date" placeholder="开始时间" class="form-control" v-model="start_time"/>
                     </div>
 
                     <div class="form-group">
 
-                        <input type="text" placeholder="结束时间" class="form-control" v-model="end_time"/>
+                        <input type="date" placeholder="结束时间" class="form-control" v-model="end_time"/>
                     </div>
 
                     <div class="form-group">
@@ -65,13 +66,13 @@
 
                     <div class="form-group">
 
-                        <input type="text" placeholder="审核状态" class="form-control" v-model="audit_status"/>
+                        <input type="text" placeholder="审核状态" class="form-control" v-model="audit_status" disabled/>
                     </div>
                 </form>
             </div>
             <div class="btn-toolbar list-toolbar">
                 <button class="btn btn-primary" @click="doSubmit" type="button"><i class="fa fa-save"></i> 提交</button>
-                <a data-toggle="modal" class="btn btn-danger" @click="doRes">重置</a>
+                <button class="btn btn-primary" @click="doRes" type="button"><i class="fa fa-save"></i> 重置</button>
             </div>
         </div>
     </div>
@@ -79,21 +80,22 @@
 <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath}/js/vue.js"></script>
 <script>
+    var context = "<%=request.getContextPath()%>";
     new Vue({
         el: "#init_zone",
         data: {
-            id: "",
+            id:"",
             user_id: "",
             start_time: "",
             end_time: "",
             place: "",
-            audit_status: "",
+            audit_status: 0,
 
         },
         methods: {
             doSubmit: function () {
                 $.ajax({
-                    url: "${pageContext.request.contextPath}/overTime/addOvertimeRecords",
+                    url: "${pageContext.request.contextPath}/addOvertimeRecords",
                     data: {
                         id: this.id,
                         userId: this.user_id,
@@ -101,19 +103,20 @@
                         endTime:this.end_time,
                         place:this.place,
                         auditStatus:this.audit_status
-
                     },
                     type:"post",
                     dataType: "json",
-                    success: function (res) {
-                        console.log(res);
+                    success: function () {
+
+                        window.location.href=context+"/toPage?page=OvertimeRecords/showApplyOvertime";
                     },
                     error:function () {
-                        alert(1);
+                        alert(0);
                     }
                 })
             },
             doRes: function () {
+                location.reload();
 
             },
         },
@@ -136,5 +139,6 @@
 
     })
 </script>
+
 </body>
 </html>

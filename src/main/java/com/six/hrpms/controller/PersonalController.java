@@ -1,6 +1,7 @@
 package com.six.hrpms.controller;
 
 import com.six.hrpms.common.JSON;
+import com.six.hrpms.pojo.AddminAddEmployee_po;
 import com.six.hrpms.pojo.UserInfo;
 import com.six.hrpms.service.PersonalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import po.AddminAddEmployee_po;
 
 @Controller
 @RequestMapping(value = "/userInfo")
