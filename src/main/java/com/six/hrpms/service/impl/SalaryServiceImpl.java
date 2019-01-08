@@ -1,5 +1,7 @@
 package com.six.hrpms.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.six.hrpms.dao.*;
 import com.six.hrpms.pojo.*;
 import com.six.hrpms.service.SalaryService;
@@ -41,11 +43,10 @@ public class SalaryServiceImpl implements SalaryService {
 
 
     @Override
-    public List<SalaryRecord> findSalaryList(SalaryRecord salaryRecord, String userName, String bossName) {
+    public PageInfo<SalaryRecord> findSalaryList(SalaryRecord salaryRecord, String userName, String bossName, Integer pageNum, Integer pageSize) {
 
         SalaryRecordExample salaryRecordExample = new SalaryRecordExample();
         SalaryRecordExample.Criteria criteria = salaryRecordExample.createCriteria();
-//        salaryRecordExample.setOrderByClause("end_time desc");
 
         if (salaryRecord != null) {
             if (salaryRecord.getUserId() != null) {
@@ -69,7 +70,24 @@ public class SalaryServiceImpl implements SalaryService {
             criteria.andUserIdIn(list);
         }
 
-        return salaryRecordMapper.selectByExample(salaryRecordExample);
+        PageHelper.startPage(pageNum, pageSize);
+        PageHelper.orderBy("end_time desc");
+        List<SalaryRecord> salaryRecords = salaryRecordMapper.selectByExample(salaryRecordExample);
+
+        PageInfo<SalaryRecord> salaryRecordPageInfo = new PageInfo<>(salaryRecords, 10);
+        salaryRecordPageInfo = changeUserIdToUserName(salaryRecordPageInfo);
+        return salaryRecordPageInfo;
+    }
+
+    private PageInfo<SalaryRecord> changeUserIdToUserName(PageInfo<SalaryRecord> salaryRecordPageInfo) {
+        for (SalaryRecord salaryRecord : salaryRecordPageInfo.getList()) {
+            try {
+                salaryRecord.setUserId(userInfoMapper.selectByPrimaryKey(salaryRecord.getUserId()).getUserName());
+            }catch (Exception e){
+                System.out.println("该用户详情信息为空,userId:"+salaryRecord.getUserId());
+            }
+        }
+        return salaryRecordPageInfo;
     }
 
     /**
@@ -234,6 +252,13 @@ public class SalaryServiceImpl implements SalaryService {
         Date start = user.getSalaryTime();
         Date end = DateAndStringTransform.getNextDay4Points(start);
 
+        List<String> up = new ArrayList<>();
+        up.add("1");
+        up.add("2");
+        up.add("3");
+        List<String> down = new ArrayList<>();
+        down.add("4");
+
         while (end.getTime() <= now.getTime()) {
             //上午迟到
             Boolean amBeLater = true;
@@ -245,9 +270,9 @@ public class SalaryServiceImpl implements SalaryService {
             Boolean pmLeaverEarly = true;
 
             //当天上班记录
-            List<AttendanceRecord> goTo = findAttendanceRecords(user, start, end, "上班");
+            List<AttendanceRecord> goTo = findAttendanceRecords(user, start, end, up);
             //当天下班记录
-            List<AttendanceRecord> gotOff = findAttendanceRecords(user, start, end, "下班");
+            List<AttendanceRecord> gotOff = findAttendanceRecords(user, start, end, down);
 
             if (goTo.size() != gotOff.size()) {
                 new RuntimeException("上班记录与下班记录数量不匹配");
@@ -257,10 +282,10 @@ public class SalaryServiceImpl implements SalaryService {
             /**
              * 注释区为上下午班制度
              */
-            String amStartTime = "08:00";
+            String amStartTime = "09:00";
 //            String amEndTime = "12:00";
 //            String pmStartTime = "14:00";
-            String pmEndTime = "18:00";
+            String pmEndTime = "17:00";
             String startTime = amStartTime;
 //            String endTime = amEndTime;
             String endTime = pmEndTime;
@@ -420,7 +445,7 @@ public class SalaryServiceImpl implements SalaryService {
      * @return 查询结果
      */
     @Override
-    public List<AttendanceRecord> findAttendanceRecords(UserInfo user, Date start, Date end, String status) {
+    public List<AttendanceRecord> findAttendanceRecords(UserInfo user, Date start, Date end, List<String> status) {
 
         //查询该用户的上下班记录(工资计算时间段)
         AttendanceRecordExample example1 = new AttendanceRecordExample();
@@ -429,7 +454,7 @@ public class SalaryServiceImpl implements SalaryService {
 
         criteria.andUserIdEqualTo(user.getUserId());
         criteria.andTimeBetween(start, end);
-        criteria.andStatusEqualTo(status);
+        criteria.andStatusIn(status);
 
         //上/下班记录
         return attendanceRecordMapper.selectByExample(example1);

@@ -119,7 +119,12 @@
             <li ><a onclick=toPage("")><span class="fa fa-caret-right"></span> Terms and Conditions</a></li>
         </ul></li>
 
-        <li><a onclick=toPage("") class="nav-header"><i class="fa fa-fw fa-question-circle"></i>薪资管理</a></li>
+        <li><a href="#" data-target=".accounts-menu1" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-question-circle"></i>薪资管理<i class="fa fa-collapse"></i></a></li>
+        <li><ul class="accounts-menu1 nav nav-list collapse">
+            <li ><a onclick=toUrl("/salary/toSalaryList")><span class="fa fa-caret-right"></span> 个人薪资列表</a></li>
+            <li id="adminSalaryMenu"><a onclick=toUrl("/salary/toSalaryListWithAdmin")><span class="fa fa-caret-right"></span> 管理员薪资列表</a></li>
+
+        </ul></li>
         <!--<li><a href="faq.html" class="nav-header"><i class="fa fa-fw fa-comment"></i> Faq</a></li>-->
         <li><a onclick=toPage("") class="nav-header" target="blank"><i class="fa fa-fw fa-heart"></i> 出差报销</a></li>
     </ul>
@@ -133,7 +138,7 @@
         </div>
     </c:when>
     <c:otherwise>
-        <iframe src="${pageContext.request.contextPath}/welcome.jsp" style="width:86%;height:500px;float: right;border:none;" id="zone"></iframe>
+        <iframe src="${pageContext.request.contextPath}/welcome.jsp" style="width:86%;height: 46em;float: right;border:none;" id="zone"></iframe>
     </c:otherwise>
 </c:choose>
 
@@ -141,6 +146,9 @@
     //iframe跳转页面
     function toPage(page) {
         $("#zone").attr("src","${pageContext.request.contextPath}/toPage?page="+page);
+    }
+    function toUrl(url) {
+        $("#zone").attr("src","${pageContext.request.contextPath}"+url);
     }
 </script>
 </body>

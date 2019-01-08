@@ -26,21 +26,27 @@ public class RoleAspect {
 
     /**
      * 拦截controller包下的所有带有Admin的方法
+     *
      * @param proceedingJoinPoint 被拦截方法的信息
      * @return 对应前端页面
      */
-    @Around(value = "execution(* com.six.hrpms.controller..*Admin*.*(..))")
+    @Around(value = "execution(* com.six.hrpms.controller..*.*Admin*(..))")
     public String RoleJudge(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        System.out.println("---------拦截请求---------");
 
+        System.out.println("---------获取用户信息---------");
         Object[] args = proceedingJoinPoint.getArgs();
         HttpSession session = (HttpSession) args[0];
 
         User user = (User) session.getAttribute("user");
         UserInfo userInfo = userInfoMapper.selectByPrimaryKey(user.getUserId());
+        System.out.println("用户权限：" + userInfo.getIsAdministrator());
         String s = new String();
-        if (userInfo.getIsAdministrator()==1){
+        if (userInfo.getIsAdministrator() == 3) {
+            System.out.println("---------权限正常---------");
             s = (String) proceedingJoinPoint.proceed();
-        }else {
+        } else {
+            System.out.println("---------权限不足---------");
             return "permissionDenied";
         }
 
