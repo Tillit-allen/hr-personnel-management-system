@@ -24,6 +24,7 @@ public class AttendanceRecordServiceImpl implements AttendanceRecordService {
     public List<AttendanceRecord> selectAttendanceRecordList(AttendanceRecord attendanceRecord){
         AttendanceRecordExample attendanceRecordExample = new AttendanceRecordExample();
         AttendanceRecordExample.Criteria criteria = attendanceRecordExample.createCriteria();
+        attendanceRecordExample.setOrderByClause("time asc");
         criteria.andIdIsNotNull();
         criteria.andUserIdEqualTo(attendanceRecord.getUserId());   //按照user_id的值来查询
         List<AttendanceRecord> attendanceRecordList = attendanceRecordMapper.selectByExample(attendanceRecordExample);
@@ -42,6 +43,7 @@ public class AttendanceRecordServiceImpl implements AttendanceRecordService {
         AttendanceRecordExample.Criteria criteria = attendanceRecordExample.createCriteria();
         criteria.andUserIdEqualTo(attendanceRecord.getUserId());   //按照user_id的值来查询
         criteria.andTimeBetween(date1,date2);
+        attendanceRecordExample.setOrderByClause("time asc");
         List<AttendanceRecord> attendanceRecordList = attendanceRecordMapper.selectByExample(attendanceRecordExample);
         return attendanceRecordList;
     }
@@ -72,7 +74,7 @@ public class AttendanceRecordServiceImpl implements AttendanceRecordService {
         AttendanceRecordExample.Criteria criteria = attendanceRecordExample.createCriteria();
         criteria.andUserIdEqualTo(attendanceRecord.getUserId());  //根据user_id的值来判断用户
         try {
-            attendanceRecordMapper.insert(attendanceRecord);
+            attendanceRecordMapper.insertSelective(attendanceRecord);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("插入数据异常");
@@ -88,6 +90,7 @@ public class AttendanceRecordServiceImpl implements AttendanceRecordService {
     public List<AttendanceRecord> findAllAttendanceRecordList(){
         AttendanceRecordExample attendanceRecordExample = new AttendanceRecordExample();
         AttendanceRecordExample.Criteria criteria = attendanceRecordExample.createCriteria();
+        attendanceRecordExample.setOrderByClause("time asc");
         criteria.andIdIsNotNull();
         List<AttendanceRecord> attendanceRecordList = attendanceRecordMapper.selectByExample(attendanceRecordExample);
         return attendanceRecordList;
@@ -97,6 +100,7 @@ public class AttendanceRecordServiceImpl implements AttendanceRecordService {
     public List<AttendanceRecord> getUserAttendanceRecord(String userid,Date date1,Date date2){
         AttendanceRecordExample attendanceRecordExample = new AttendanceRecordExample();
         AttendanceRecordExample.Criteria criteria = attendanceRecordExample.createCriteria();
+        attendanceRecordExample.setOrderByClause("time asc");
         criteria.andUserIdEqualTo(userid);
         criteria.andTimeBetween(date1,date2);
         List<AttendanceRecord> attendanceRecordList = attendanceRecordMapper.selectByExample(attendanceRecordExample);

@@ -104,13 +104,17 @@ public class AttendanceRecordController {
         now1 = calendar.getTime(); //这个时间就是日期往后推一天的结果
         java.sql.Date datetime2 = new java.sql.Date(now1.getTime());//将往后推一天的时间转为sql类型
 
-        if (attendanceRecordService.selectAttendanceRecordList1(attendanceRecord, datetime1, datetime2).size() == 1) {
+        List<AttendanceRecord> attendance = attendanceRecordService.selectAttendanceRecordList1(attendanceRecord,datetime1,datetime2);
+
+        if (attendance.size() == 1) {
             model.addAttribute("attendanceRecordList0",
-                    attendanceRecordService.selectAttendanceRecordList1(attendanceRecord, datetime1, datetime2).get(0).getStatus());
-        } else if (attendanceRecordService.selectAttendanceRecordList1(attendanceRecord, datetime1, datetime2).size() == 2) {
+                    attendance.get(0).getStatus());
+        } else if (attendance.size() == 2) {
+
             model.addAttribute("attendanceRecordList0",
-                    attendanceRecordService.selectAttendanceRecordList1(attendanceRecord, datetime1, datetime2).get(1).getStatus());
-        } else if (attendanceRecordService.selectAttendanceRecordList1(attendanceRecord, datetime1, datetime2).size() == 0) {
+                    attendance.get(1).getStatus());
+
+        } else if (attendance.size() == 0) {
             model.addAttribute("attendanceRecordList0", 0);
         }
         return "attendance/Status";
