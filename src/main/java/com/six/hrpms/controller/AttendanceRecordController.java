@@ -144,12 +144,7 @@ public class AttendanceRecordController {
             //随机生成id
             String base = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
             Random random = new Random();
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < 3; i++) {
-                int k = random.nextInt(base.length() - 1);
-                sb.append(base.charAt(k));
-            }
-            attendanceRecord.setId(sb.toString());
+            attendanceRecord.setId(UUID.randomUUID().toString());
             DateAndStringTransform dateAndStringTransform = new DateAndStringTransform(); //时间判断类
             //签到是否迟到判断
             time = dateAndStringTransform.judgmentPeriod(date, "09:00", "09:15");
