@@ -37,7 +37,7 @@ public class SalaryController {
     }
 
         @RequestMapping("toSalaryListWithAdmin")
-    public String toSalaryListWithAdmin() {
+    public String toSalaryListWithAdmin(HttpSession session) {
         return "/salary/salaryListAdmin";
     }
 
@@ -58,10 +58,10 @@ public class SalaryController {
             pageSize = 10;
         }
 
-//        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         SalaryRecord salaryRecord = new SalaryRecord();
-        salaryRecord.setUserId("111");
-//        salaryRecord.setUserId(user.getUserId());
+//        salaryRecord.setUserId("111");
+        salaryRecord.setUserId(user.getUserId());
         salaryRecord.setStartTime(start);
         salaryRecord.setEndTime(end);
 
@@ -78,12 +78,6 @@ public class SalaryController {
 
         SalaryRecord salaryRecordInfo = salaryService.findSalaryListById(id);
         model.addAttribute("salaryRecordInfo",salaryRecordInfo);
-//        System.out.println(salaryRecordInfo.getUserId());
-//        System.out.println(salaryRecordInfo.getBusinessMoney());
-//        System.out.println(salaryRecordInfo.getEndTime());
-//        System.out.println(salaryRecordInfo.getStartTime());
-//        System.out.println(salaryRecordInfo.getWorkTime());
-//        System.out.println(salaryRecordInfo.getBusinessTime());
         return "/salary/salaryInfo";
 
     }
@@ -125,7 +119,7 @@ public class SalaryController {
      */
     @RequestMapping("salaryMoneyAllUserWithAdmin")
     @ResponseBody
-    public JSON salaryMoneyAllUser(HttpSession session, Double bonus){
+    public JSON salaryMoneyAllUserWithAdmin(HttpSession session, Double bonus){
 
         Integer payoff = salaryService.payoff(bonus);
 
@@ -141,7 +135,7 @@ public class SalaryController {
      */
     @RequestMapping("salaryMoneyByUserIdsWithAdmin")
     @ResponseBody
-    public JSON salaryMoneyByUserIds(List<String> userIds,Double bonus,HttpSession session){
+    public JSON salaryMoneyByUserIdsWithAdmin(List<String> userIds,Double bonus,HttpSession session){
         Integer payoff = salaryService.payoff(userIds, bonus);
         return JSON.ok(payoff);
     }
