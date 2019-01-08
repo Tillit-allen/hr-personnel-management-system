@@ -72,10 +72,8 @@
                     <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">我的信息</a></li>
-                    <li><a href="#">修改密码</a></li>
-                    <li class="divider"></li>
-                    <li class="dropdown-header">管理员模块</li>
+                    <li><a onclick=toPage("/ThisUserData")>我的信息</a></li>
+                    <li><a onclick=toPage("/ChangePassword")>修改密码</a></li>
                         <%--<li><a href="#">Security</a></li>--%>
                         <%--<li><a tabindex="-1" href="#">Payments</a></li>--%>
                     <li class="divider"></li>
@@ -132,10 +130,10 @@
 <c:choose>
     <c:when test="${sessionScope.user==null}">
         <div id="title">
-            <h2 >傻逼玩意登陆去滚滚滚滚</h2>
-            <br/>
-            <span style="color:#aaaaaa">右上角点击登陆</span>
-        </div>
+        <h2 >傻逼玩意登陆去滚滚滚滚</h2>
+        <br/>
+        <span style="color:#aaaaaa">右上角点击登陆</span>
+    </div>
     </c:when>
     <c:otherwise>
         <iframe src="${pageContext.request.contextPath}/welcome.jsp" style="width:86%;height: 46em;float: right;border:none;" id="zone"></iframe>
