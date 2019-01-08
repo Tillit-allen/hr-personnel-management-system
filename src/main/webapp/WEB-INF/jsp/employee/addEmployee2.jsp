@@ -28,10 +28,16 @@
             width:100%;
             height:auto;
         }
+        #circle{
+            width: 30px;
+            height: 30px;
+            border-radius:50%;
+        }
     </style>
 </head>
 <body>
 <div id="reCheck_zone">
+    <template v-if="tableData.isAdministrator == 0">
     <div class="row">
         <div class="col-md-4">
             <br>
@@ -67,8 +73,8 @@
                         </div>
                         <div class="form-group">
                             <label>婚姻状况</label>
-                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="sex" value="已婚" checked v-model="tableData.marriage"/>已婚
-                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="sex" value="未婚" v-model="tableData.marriage"/>未婚
+                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="marry" value="已婚" checked v-model="tableData.marriage"/>已婚
+                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="marry" value="未婚" v-model="tableData.marriage"/>未婚
                         </div>
                         <div class="form-group">
                             <label>出生年月</label>
@@ -87,6 +93,13 @@
             </div>
         </div>
     </div>
+    </template>
+    <template v-else>
+        <div id="pass">
+            <div  id="circle">Pass</div>
+            <h2>验证已通过</h2>
+        </div>
+    </template>
 </div>
 <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.js"></script>
 <script src="${pageContext.request.contextPath}/js/vue.js"></script>
@@ -103,26 +116,52 @@
                 basicSalary: "",
                 marriage:"",
                 birthday:"",
-                homePlace:""
-            }
+                homePlace:"",
+                isAdministrator:"",
+            },
+
         },
         methods:{
             doSubmit:function(){
-
+                $.ajax({
+                    url:"/userInfo/postEmployeeData",
+                    data:{
+                        userName:this.tableData.userName,
+                        sex:this.tableData.sex,
+                        bossName:this.tableData.bossName,
+                        basicSalary:this.tableData.basicSalary,
+                        marriage:this.tableData.marriage,
+                        birthday:this.tableData.birthday,
+                        homePlace:this.tableData.homePlace,
+                    },
+                    type:"post",
+                    dataType:"json",
+                    success:function (res) {
+                        if(res.status==200){
+                            alert("提交成功！");
+                        }else{
+                            alert("提交失败！");
+                        }
+                    },
+                    error:function () {
+                        alert("服务器错误！");
+                    }
+                })
             },
             doRes:function () {
 
             }
         },
         mounted:function () {
+            const this_ = this;
             $.ajax({
-                url:"/userInfo/getEmployeeData_",
+                url:"/userInfo/getEmployeeData__",
                 data:{
-                    userId:"0",
                 },
                 type:"post",
                 dataType:"json",
                 success:function (res) {
+                    this_.tableData = res.data;
                     console.log(res);
                 },
                 error:function () {

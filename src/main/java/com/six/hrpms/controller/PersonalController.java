@@ -1,6 +1,9 @@
 package com.six.hrpms.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.six.hrpms.common.JSON;
+import com.six.hrpms.pojo.ChangePassWord_po;
 import com.six.hrpms.pojo.User;
 import com.six.hrpms.pojo.UserInfo;
 import com.six.hrpms.service.PersonalService;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.six.hrpms.pojo.AddminAddEmployee_po;
+
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -41,15 +46,31 @@ public class PersonalController {
     * */
     @RequestMapping(value = "/getAllEmployee",method = {RequestMethod.POST})
     @ResponseBody
-    public JSON getAllEmployee(){
-        return JSON.ok(personalService.getAllUser());
+    public JSON getAllEmployee(String pageNum){
+        //分页
+        int pagenum = 1;
+        if(!pageNum.equals("")){
+            pagenum = Integer.valueOf(pageNum);
+        }
+        PageHelper.startPage(pagenum , 10);
+        List <UserInfo> list = personalService.getAllUser();
+        PageInfo<UserInfo> personPageInfo = new PageInfo<>(list);
+        return JSON.ok(personPageInfo);
     }
 
     //显示未激活的员工列表
     @RequestMapping(value = "/getUnActiveEmployee",method = {RequestMethod.POST})
     @ResponseBody
-    public JSON getUnActiveEmployee(){
-        return JSON.ok(personalService.getUnActiveEmpl());
+    public JSON getUnActiveEmployee(String pageNum){
+        //分页
+        int pagenum1 = 1;
+        if(!pageNum.equals("")){
+            pagenum1 = Integer.valueOf(pageNum);
+        }
+        PageHelper.startPage(pagenum1 , 7);
+        List<UserInfo> list =  personalService.getUnActiveEmpl();
+        PageInfo<UserInfo> personPageInfo = new PageInfo<>(list);
+        return JSON.ok(personPageInfo);
     }
 
     /*
@@ -83,7 +104,7 @@ public class PersonalController {
 
     /*
     *   按照userId读从user_info表数据
-    *   @params：传过来的当前登陆的员工信息
+    *   @params：传过来的员工信息
     *   return：读出来的数据
     * */
     @RequestMapping(value = "/getEmployeeData_",method = {RequestMethod.POST})
@@ -92,6 +113,8 @@ public class PersonalController {
         this.userInfo =  personalService.selectFromUserInfo(userInfo);
         return JSON.ok(this.userInfo);
     }
+
+
     @RequestMapping(value = "/getEmployeeDataForModify",method = {RequestMethod.POST})
     @ResponseBody
     public JSON getEmployeeForEmployee2(){
@@ -121,9 +144,11 @@ public class PersonalController {
     public JSON checkEmploy(UserInfo userInfo,String flag){
         if(flag.equals("true")){
             userInfo.setIsAdministrator(3);
-        }else
+        }else if(flag.equals("false"))
         {
             userInfo.setIsAdministrator(2);
+        }else{
+            userInfo.setIsAdministrator(0);
         }
             personalService.updateEmplForAdmin(userInfo);
         return JSON.ok();
@@ -168,5 +193,69 @@ public class PersonalController {
         System.out.println(userInfo.getUserName());
         List<UserInfo> list = personalService.searchEmplForAdmin(userInfo,flag);
         return JSON.ok(list);
+    }
+
+    //获取当前用户信息
+    @RequestMapping(value = "/getUser")
+    @ResponseBody
+    public JSON getUser(HttpSession session){
+        User u = (User)session.getAttribute("user");
+        return JSON.ok(u);
+    }
+
+    //获取当前登陆用户的信息
+    @RequestMapping(value = "/getEmployeeData__")
+    @ResponseBody
+    public JSON getEmployee_(HttpSession session){
+        User user = (User)session.getAttribute("user");
+        userInfo.setUserId(user.getUserId());
+        return JSON.ok(personalService.selectFromUserInfo(userInfo));
+    }
+
+    //员工反校验提交
+    @RequestMapping(value = "/postEmployeeData",method = {RequestMethod.POST})
+    @ResponseBody
+    public JSON postData(UserInfo userInfo,HttpSession session){
+        User user = (User)session.getAttribute("user");
+        userInfo.setUserId(user.getUserId());
+        userInfo.setIsAdministrator(1);
+        int flag = personalService.updateEmplForAdmin(userInfo);
+        if(flag==1)
+            return JSON.ok();
+        return JSON.errorMsg("提交失败！");
+    }
+
+    //获取当前登陆用户查看自己信息
+    @RequestMapping(value = "/thisUserData",method = {RequestMethod.POST})
+    @ResponseBody
+    public JSON getThisUserData(HttpSession session){
+        User u = (User)session.getAttribute("user");
+        userInfo.setUserId(u.getUserId());
+        UserInfo uu = personalService.selectFromUserInfo(userInfo);
+        if(uu!=null){
+            return JSON.ok(uu);
+        }else{
+            return JSON.errorMsg("登陆账号发生问题，请退出登录");
+        }
+    }
+
+    //当前用户改密码
+    @RequestMapping(value = "/changePassWord",method = {RequestMethod.POST})
+    @ResponseBody
+    public JSON changePassword(HttpSession session, ChangePassWord_po changePassWord_po){
+
+        user.setUserId(((User)session.getAttribute("user")).getUserId());
+        user.setPassword(changePassWord_po.getOldPassword());
+        List<User> list = personalService.checkPassWord(user);
+        if(list.size()==0){
+            return JSON.errorMsg("原密码错误！");
+        }else{
+            if(changePassWord_po.getNewCheckPassword().equals(changePassWord_po.getNewPassword())){
+                user.setPassword(changePassWord_po.getNewPassword());
+                personalService.updatePassWord(user);
+                return JSON.ok();
+            }else
+                return JSON.errorMsg("两次新密码不一致！");
+        }
     }
 }
