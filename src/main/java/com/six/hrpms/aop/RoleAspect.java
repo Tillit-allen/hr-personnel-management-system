@@ -31,7 +31,7 @@ public class RoleAspect {
      * @return 对应前端页面
      */
     @Around(value = "execution(* com.six.hrpms.controller..*.*Admin*(..))")
-    public String RoleJudge(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object RoleJudge(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         System.out.println("---------拦截请求---------");
 
         System.out.println("---------获取用户信息---------");
@@ -44,14 +44,11 @@ public class RoleAspect {
         String s = new String();
         if (userInfo.getIsAdministrator() == 3) {
             System.out.println("---------权限正常---------");
-            s = (String) proceedingJoinPoint.proceed();
+            return proceedingJoinPoint.proceed();
         } else {
             System.out.println("---------权限不足---------");
             return "permissionDenied";
         }
-
-        return s;
-
     }
 
 }

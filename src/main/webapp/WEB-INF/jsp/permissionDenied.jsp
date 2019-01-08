@@ -26,6 +26,6 @@
     <script src="${pageContext.request.contextPath}/lib/bootstrap/js/bootstrap.js"></script>
 </head>
 <body>
-<h1>权限不足!!!</h1>
+<h1 style="text-align: center">权限不足!!!</h1>
 </body>
 </html>
