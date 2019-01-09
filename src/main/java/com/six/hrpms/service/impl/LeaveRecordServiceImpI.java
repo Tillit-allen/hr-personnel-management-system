@@ -5,25 +5,28 @@ import com.six.hrpms.dao.LeaveRecordMapper;
 import com.six.hrpms.pojo.LeaveRecord;
 import com.six.hrpms.pojo.LeaveRecordExample;
 import com.six.hrpms.service.LeaveRecordService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service("LeaveRecordService")
 public class LeaveRecordServiceImpI implements LeaveRecordService {
-
+    @Autowired
     private LeaveRecordMapper leaveRecordMapper;
 
     /**
      * 查询所有的收录工具
+     *
      * @return 返回所有的收录工具的集合
      */
 
     //上司浏览所有请假记录
     @Override
-    public List<LeaveRecord> findAllList() {
+    public List<LeaveRecord> findAllList(Date start, Date end) {
         //通过Criteria查询对象查询的四个步骤：
 
         //1.创建一个IncludeToolExample对象
@@ -32,6 +35,14 @@ public class LeaveRecordServiceImpI implements LeaveRecordService {
         LeaveRecordExample.Criteria criteria = leaveRecordExample.createCriteria();
         //3.给criteria对象增加查询条件
         criteria.andIdIsNotNull();  //创建id列不为空的条件，即可表示查询所有的值
+
+        if (start != null) {
+            criteria.andStartTimeGreaterThanOrEqualTo(start);
+        }
+        if (end != null) {
+            criteria.andEndTimeLessThanOrEqualTo(end);
+        }
+
         //4.调selectByExample方法查询满足条件的结果集存放到集合中
         List<LeaveRecord> findAllList = leaveRecordMapper.selectByExample(leaveRecordExample);
         return findAllList;
@@ -39,21 +50,31 @@ public class LeaveRecordServiceImpI implements LeaveRecordService {
 
     //上司按员工ID查找请假记录
     @Override
-    public List<LeaveRecord> findByuserId(LeaveRecord leaveRecord){
+    public List<LeaveRecord> findByUserId(String userId, Date start, Date end) {
         LeaveRecordExample leaveRecordExample = new LeaveRecordExample();
         LeaveRecordExample.Criteria criteria = leaveRecordExample.createCriteria();
-        criteria.andUserIdEqualTo(leaveRecord.getUserId());
-        List<LeaveRecord> findByuserId = leaveRecordMapper.selectByExample(leaveRecordExample);
-        return findByuserId;
+        criteria.andUserIdEqualTo(userId);
+
+        if (start != null) {
+            criteria.andStartTimeGreaterThanOrEqualTo(start);
+        }
+        if (end != null) {
+            criteria.andEndTimeLessThanOrEqualTo(end);
+        }
+
+        List<LeaveRecord> findByUserId = leaveRecordMapper.selectByExample(leaveRecordExample);
+        return findByUserId;
+    }
+
+    @Override
+    public LeaveRecord findLeaveRecordById(Integer id) {
+        return leaveRecordMapper.selectByPrimaryKey(id);
     }
 
     //上司审核
     @Override
-    public void CheckLeaveRecord(LeaveRecord leaveRecord){
-        LeaveRecordExample leaveRecordExample = new LeaveRecordExample();
-        LeaveRecordExample.Criteria criteria = leaveRecordExample.createCriteria();
-        criteria.andIdEqualTo(leaveRecord.getId());
-        leaveRecordMapper.updateByExampleSelective(leaveRecord,leaveRecordExample);
+    public void CheckLeaveRecord(LeaveRecord leaveRecord) {
+        leaveRecordMapper.updateByPrimaryKeySelective(leaveRecord);
     }
 
     //员工取消申请请假(按请假编号)
@@ -69,38 +90,26 @@ public class LeaveRecordServiceImpI implements LeaveRecordService {
     //员工申请请假
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
     @Override
-    public void insertLeaveRecord(LeaveRecord leaveRecord){
-        if(leaveRecord.getReason() == null){
-            throw new RuntimeException("原因不能空");
-        }
-        else if(leaveRecord.getStartTime()==null || leaveRecord.getEndTime()==null){
-            throw  new RuntimeException("请假时间不能空");
-        }
-        try{
+    public void insertLeaveRecord(LeaveRecord leaveRecord) {
+
             leaveRecordMapper.insertSelective(leaveRecord);
-        }catch (Exception e){
-            e.printStackTrace();
-            throw new RuntimeException("插入数据异常");
-        }
+
     }
 
     //员工修改请假信息
     @Override
-    public void updateLeaveRecord(LeaveRecord leaveRecord){
+    public void updateLeaveRecord(LeaveRecord leaveRecord) {
 
         try {
-            LeaveRecordExample leaveRecordExample=new LeaveRecordExample();
-            LeaveRecordExample.Criteria criteria= leaveRecordExample.createCriteria();
-            criteria.andUserIdEqualTo(leaveRecord.getUserId());
-            leaveRecordMapper.updateByExample(leaveRecord,leaveRecordExample);
+            leaveRecordMapper.updateByPrimaryKeySelective(leaveRecord);
             //updateByPrimaryKeySelective方法表示通过主键更新属性值不为null的列
         } catch (Exception e) {
             //e.printStackTrace();
-            if(leaveRecord.getReason()== null){
+            if (leaveRecord.getReason() == null) {
                 throw new RuntimeException("原因空");
-            }else if(leaveRecord.getStartTime() ==null){
+            } else if (leaveRecord.getStartTime() == null) {
                 throw new RuntimeException("开始时间空");
-            }else if(leaveRecord.getEndTime()== null){
+            } else if (leaveRecord.getEndTime() == null) {
                 throw new RuntimeException("结束时间空");
             }
             throw new RuntimeException("更新数据异常");

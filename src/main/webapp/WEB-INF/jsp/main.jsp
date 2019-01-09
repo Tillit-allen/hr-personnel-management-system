@@ -115,8 +115,9 @@
 
         <li><a href="#" data-target=".legal-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-legal"></i>请假申请<i class="fa fa-collapse"></i></a></li>
         <li><ul class="legal-menu nav nav-list collapse">
-            <li ><a onclick=toPage("employee/EmployeeList")><span class="fa fa-caret-right"></span> 请假记录 </a></li>
-
+            <li ><a href="${pageContext.request.contextPath}/leave/toLeaveListWithAdmin"><span class="fa fa-caret-right"></span> 请假记录 </a></li>
+            <li ><a href="${pageContext.request.contextPath}/leave/toAddLeaveList"><span class="fa fa-caret-right"></span> 申请请假 </a></li>
+            <li ><a href="${pageContext.request.contextPath}/leave/toLeaveList"><span class="fa fa-caret-right"></span> 员工请假记录 </a></li>
         </ul></li>
 
         <li><a onclick=toPage("") class="nav-header"><i class="fa fa-fw fa-question-circle"></i>薪资管理</a></li>
