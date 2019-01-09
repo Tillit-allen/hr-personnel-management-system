@@ -61,4 +61,10 @@ public interface PersonalService {
 
     //查询员工信息
     List<UserInfo> searchEmplForAdmin(UserInfo userInfo,String flag);
+
+    //用户改密码校验填的老密码对不对
+    List<User> checkPassWord(User user);
+
+    //用户更改密码
+    int updatePassWord(User user);
 }

@@ -69,12 +69,24 @@
             </template>
         </el-table-column>
     </el-table>
+    <div id="pagebutton">
+        <span>第{{pageNum}}页</span>
+        <span id="first"><button @click="tofirstPage" id="firstPage">首页</button></span>
+        <span id="prev"><button @click="toprevPage" class="el-icon-arrow-left" id="prevPage"></button></span>
+        <span id="next"><button @click="tonextPage" class="el-icon-arrow-right" id="nextPage"></button></span>
+        <span id="end"><button @click="toendPage" id="endPage">尾页</button></span>
+        <span>共{{total}}条数据  共{{lastPage}}页</span>
+    </div>
 </div>
 <script>
     new Vue({
         el:"#check_zone",
         data:{
             tableData:[],
+            pageNum:"",
+            firstPage: 1,
+            lastPage:"",
+            total:"",
         },
         methods:{
             doPass:function (row) {
@@ -85,7 +97,9 @@
                 }
             },
             doRefuse:function (row) {
-
+                if(confirm("是否确定拒绝?")) {
+                    this.doDo("gun", row);
+                }
             },
             doDo:function (flag,row) {
                 $.ajax({
@@ -100,9 +114,96 @@
                         console.log(res);
                     },
                     error:function () {
-                        alert(11111);
+                        alert("服务器错误！");
                     }
                 })
+            },
+            tochange_:function (row) {
+                window.location="${pageContext.request.contextPath}/toChange?id="+row.id ;
+            },
+            //首页
+            tofirstPage:function () {
+                var this_ = this;
+                $.ajax({
+                    url:"/userInfo/getUnActiveEmployee",
+                    data:{
+                        pageNum :1,
+                    },
+                    type:"post",
+                    dataType:"json",
+                    error:function () {
+                        alert("error");
+                    },
+                    success:function (res) {
+                        this_.tableData= res.data.list;
+                        this_.pageNum = res.data.pageNum;
+                    }
+                })
+            },
+            //尾页
+            toendPage:function () {
+                var this_ = this;
+                $.ajax({
+                    url:"/userInfo/getUnActiveEmployee",
+                    data:{
+                        pageNum :this_.lastPage,
+                    },
+                    type:"post",
+                    dataType:"json",
+                    error:function () {
+                        alert("error");
+                    },
+                    success:function (res) {
+                        this_.tableData= res.data.list;
+                        this_.pageNum = res.data.pageNum;
+                    }
+                })
+            },
+            tonextPage:function () {
+                var this_ = this;
+                if(this_.pageNum==this_.lastPage){
+                    this_.$message('已经是最后一页了');
+                }else{
+                    $.ajax({
+                        url:"/userInfo/getUnActiveEmployee",
+                        data:{
+                            pageNum :++this_.pageNum,
+                        },
+                        type:"post",
+                        dataType:"json",
+                        error:function () {
+                            alert("error");
+                        },
+                        success:function (res) {
+                            this_.tableData= res.data.list;
+                            this_.pageNum = res.data.pageNum;
+                        }
+                    })
+                }
+
+            },
+            toprevPage:function () {
+                var this_ = this;
+                if(this_.pageNum==1){
+                    this_.$message('已经是第一页了');
+                }else{
+                    $.ajax({
+                        url:"/userInfo/getUnActiveEmployee",
+                        data:{
+                            pageNum :--this_.pageNum,
+                        },
+                        type:"post",
+                        dataType:"json",
+                        error:function () {
+                            alert("error");
+                        },
+                        success:function (res) {
+                            this_.tableData= res.data.list;
+                            this_.pageNum = res.data.pageNum;
+                        }
+                    })
+                }
+
             }
         },
         mounted:function () {
@@ -110,12 +211,15 @@
             $.ajax({
                 url:"/userInfo/getUnActiveEmployee",
                 data:{
-
+                    pageNum:""
                 },
                 type:"post",
                 dataType:"json",
                 success:function (res) {
-                    this_.tableData = res.data;
+                    this_.tableData = res.data.list;
+                    this_.pageNum = res.data.pageNum;
+                    this_.lastPage = res.data.pages;
+                    this_.total = res.data.total;
                     console.log(res);
                 },
                 error:function () {

@@ -4,6 +4,7 @@ package com.six.hrpms.service.impl;
 import com.six.hrpms.dao.UserInfoMapper;
 import com.six.hrpms.dao.UserMapper;
 import com.six.hrpms.pojo.User;
+import com.six.hrpms.pojo.UserExample;
 import com.six.hrpms.pojo.UserInfo;
 import com.six.hrpms.pojo.UserInfoExample;
 import com.six.hrpms.service.PersonalService;
@@ -56,6 +57,24 @@ public class PersonalService_impl implements PersonalService {
     @Override
     public int deleteEmplForAdmin(UserInfo userInfo) {
         return userInfoMapper.deleteByPrimaryKey(userInfo.getUserId());
+    }
+
+    @Override
+    public int updatePassWord(User user) {
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(user.getUserId());
+//        criteria.andPasswordEqualTo(user.getPassword());
+        return userMapper.updateByExampleSelective(user,example);
+    }
+
+    @Override
+    public List<User> checkPassWord(User user) {
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andPasswordEqualTo(user.getPassword());
+        criteria.andUserIdEqualTo(user.getUserId());
+        return userMapper.selectByExample(example);
     }
 
     @Override

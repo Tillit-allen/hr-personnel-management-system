@@ -24,7 +24,6 @@
         .col-md-4 {
             margin-left: 30px;
         }
-
         .row {
             width: 100%;
             height: auto;

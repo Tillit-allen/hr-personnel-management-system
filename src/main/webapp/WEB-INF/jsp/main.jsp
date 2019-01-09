@@ -60,22 +60,20 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a href=""><span class="navbar-brand"><span class="fa fa-paper-plane"></span> Aircraft</span></a></div><div class="navbar-collapse collapse" style="height: 1px;">
+        <a onclick=return_()><span class="navbar-brand"><span class="fa fa-paper-plane"></span> Aircraft</span></a></div><div class="navbar-collapse collapse" style="height: 1px;">
     <ul id="main-menu" class="nav navbar-nav navbar-right">
 <c:choose>
     <c:when test="${sessionScope.user==null}"><a href="toPage?page=loginRegister/Login">请先登录</a></c:when>
     <c:otherwise>
             <li class="dropdown hidden-xs">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" >
                     <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;">
-                            ${sessionScope.user.loginName}</span>
+                            ${sessionScope.userInfo.userName}</span>
                     <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">我的信息</a></li>
-                    <li><a href="#">修改密码</a></li>
-                    <li class="divider"></li>
-                    <li class="dropdown-header">管理员模块</li>
+                    <li><a onclick=toPage("/ThisUserData")>我的信息</a></li>
+                    <li><a onclick=toPage("/ChangePassword")>修改密码</a></li>
                         <%--<li><a href="#">Security</a></li>--%>
                         <%--<li><a tabindex="-1" href="#">Payments</a></li>--%>
                     <li class="divider"></li>
@@ -90,11 +88,11 @@
     <ul>
         <li><a href="#" data-target=".dashboard-menu" class="nav-header" data-toggle="collapse"><i class="fa fa-fw fa-dashboard"></i> 人员信息<i class="fa fa-collapse"></i></a></li>
         <li><ul class="dashboard-menu nav nav-list collapse in">
-            <!--<li><a onclick=toPage("index.html")><span class="fa fa-caret-right"></span> 首页</a></li>-->
+
             <li ><a onclick=toPage("employee/EmployeeList")><span class="fa fa-caret-right"></span> 员工列表</a></li>
             <li ><a onclick=toPage("employee/addEmployee1")><span class="fa fa-caret-right"></span> 初始化员工信息</a></li>
-            <li ><a onclick=toPage("employee/addEmployee2")><span class="fa fa-caret-right"></span> 员工核准</a></li>
             <li ><a onclick=toPage("employee/checkAddEmployee")><span class="fa fa-caret-right"></span> 管理员校验</a></li>
+            <li ><a onclick=toPage("employee/addEmployee2")><span class="fa fa-caret-right"></span> 员工核准</a></li>
         </ul></li>
 
         <li data-popover="true" data-content="Items in this group require a <strong><a href='http://portnine.com/bootstrap-themes/aircraft' target='blank'>premium license</a><strong>."
@@ -108,7 +106,7 @@
 
         <li><a href="#" data-target=".accounts-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-briefcase"></i> 加班申请<i class="fa fa-collapse"></i></a></li>
         <li><ul class="accounts-menu nav nav-list collapse">
-            <li ><a onclick=toPage("OvertimeRecords/addApplyOvertime")><span class="fa fa-caret-right"></span> 请假申请</a></li>
+            <li ><a onclick=toPage("OvertimeRecords/addApplyOvertime")><span class="fa fa-caret-right"></span> 加班申请</a></li>
             <li ><a onclick=toPage("OvertimeRecords/showApplyOvertime")><span class="fa fa-caret-right"></span> 审核状态</a></li>
 
         </ul></li>
@@ -132,10 +130,10 @@
 <c:choose>
     <c:when test="${sessionScope.user==null}">
         <div id="title">
-            <h2 >傻逼玩意登陆去滚滚滚滚</h2>
-            <br/>
-            <span style="color:#aaaaaa">右上角点击登陆</span>
-        </div>
+        <h2 >傻逼玩意登陆去滚滚滚滚</h2>
+        <br/>
+        <span style="color:#aaaaaa">右上角点击登陆</span>
+    </div>
     </c:when>
     <c:otherwise>
         <iframe src="${pageContext.request.contextPath}/welcome.jsp" style="width:86%;height: 46em;float: right;border:none;" id="zone"></iframe>
@@ -149,6 +147,9 @@
     }
     function toUrl(url) {
         $("#zone").attr("src","${pageContext.request.contextPath}"+url);
+    }
+    function return_() {
+        location.reload();
     }
 </script>
 </body>
