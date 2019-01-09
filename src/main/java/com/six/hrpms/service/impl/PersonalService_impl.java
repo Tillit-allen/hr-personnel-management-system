@@ -56,6 +56,7 @@ public class PersonalService_impl implements PersonalService {
 
     @Override
     public int deleteEmplForAdmin(UserInfo userInfo) {
+                userMapper.deleteByPrimaryKey(userInfo.getUserId());
         return userInfoMapper.deleteByPrimaryKey(userInfo.getUserId());
     }
 

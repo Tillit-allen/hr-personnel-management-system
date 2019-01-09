@@ -58,7 +58,6 @@ public interface PersonalService {
 
     //管理员删除员工信息
     int deleteEmplForAdmin(UserInfo userInfo);
-
     //查询员工信息
     List<UserInfo> searchEmplForAdmin(UserInfo userInfo,String flag);
 

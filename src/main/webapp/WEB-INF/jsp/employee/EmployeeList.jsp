@@ -236,7 +236,19 @@
                 type:"post",
                 dataType:"json",
                 success:function (res) {
+                    for(var i=0;i<res.data.list.length;i++){
+                        if(res.data.list[i].isAdministrator==1){
+                            res.data.list[i].isAdministrator="待审核";
+                        }else if(res.data.list[i].isAdministrator==2){
+                            res.data.list[i].isAdministrator="普通用户";
+                        }else if(res.data.list[i].isAdministrator==3){
+                            res.data.list[i].isAdministrator="管理员";
+                        }else{
+                            res.data.list[i].isAdministrator="未激活";
+                        }
+                    }
                     this_.tableData = res.data.list;
+
                     this_.total = res.data.total;
                     this_.lastPage = res.data.pages;
                     this_.pageNum = res.data.pageNum;

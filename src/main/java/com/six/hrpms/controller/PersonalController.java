@@ -31,6 +31,7 @@ public class PersonalController {
     @Autowired
     private PersonalService personalService;
 
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -54,7 +55,9 @@ public class PersonalController {
         }
         PageHelper.startPage(pagenum , 10);
         List <UserInfo> list = personalService.getAllUser();
+
         PageInfo<UserInfo> personPageInfo = new PageInfo<>(list);
+
         return JSON.ok(personPageInfo);
     }
 
@@ -135,7 +138,6 @@ public class PersonalController {
         }
         return JSON.errorMsg("更新失败！");
     }
-
     /*
     *   管理员校验添加员工是否通过
     * */
@@ -164,9 +166,6 @@ public class PersonalController {
     @RequestMapping(value = "/adminModify",method = {RequestMethod.POST})
     @ResponseBody
     public JSON adminModifyAdmin(HttpSession session,UserInfo userInfo){
-//        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//        String date = format.format(userInfo.getBirthday());
-//        userInfo.setBirthday(date);
        if(personalService.updateEmplForAdmin(userInfo)==1)
        {
            return JSON.ok();
@@ -179,6 +178,7 @@ public class PersonalController {
     @ResponseBody
     public JSON adminDeleteAdmin(HttpSession session,UserInfo userInfo){
         if(personalService.deleteEmplForAdmin(userInfo)==1){
+
             return JSON.ok();
         }
         return JSON.errorMsg("删除失败！");
@@ -243,7 +243,6 @@ public class PersonalController {
     @RequestMapping(value = "/changePassWord",method = {RequestMethod.POST})
     @ResponseBody
     public JSON changePassword(HttpSession session, ChangePassWord_po changePassWord_po){
-
         user.setUserId(((User)session.getAttribute("user")).getUserId());
         user.setPassword(changePassWord_po.getOldPassword());
         List<User> list = personalService.checkPassWord(user);
