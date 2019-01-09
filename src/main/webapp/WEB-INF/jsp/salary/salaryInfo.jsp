@@ -94,8 +94,7 @@
     <!--第一行-->
     <div class="header">
         <ul class="breadcrumb">
-            <li><a href="index.html">首页</a></li>
-            <li class="active">薪资详情</li>
+            <h1><li class="active">薪资详情</li></h1>
         </ul>
     </div>
     <div class="main-content">

@@ -36,8 +36,8 @@ public class SalaryController {
         return "/salary/salaryList";
     }
 
-        @RequestMapping("toSalaryListWithAdmin")
-    public String toSalaryListWithAdmin() {
+    @RequestMapping("toSalaryListWithAdmin")
+    public String toSalaryListWithAdmin(HttpSession session) {
         return "/salary/salaryListAdmin";
     }
 
@@ -50,7 +50,7 @@ public class SalaryController {
 
     @RequestMapping("getSalaryList")
     @ResponseBody
-    public JSON getSalaryRecordList(HttpSession session, Integer pageNum, Integer pageSize, Date start, Date end){
+    public JSON getSalaryRecordList(HttpSession session, Integer pageNum, Integer pageSize, Date start, Date end) {
         if (pageNum == null || pageNum <= 0) {
             pageNum = 1;
         }
@@ -58,49 +58,40 @@ public class SalaryController {
             pageSize = 10;
         }
 
-//        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         SalaryRecord salaryRecord = new SalaryRecord();
-        salaryRecord.setUserId("111");
-//        salaryRecord.setUserId(user.getUserId());
+//        salaryRecord.setUserId("111");
+        salaryRecord.setUserId(user.getUserId());
         salaryRecord.setStartTime(start);
         salaryRecord.setEndTime(end);
 
-        PageHelper.startPage(pageNum,pageSize);
-        PageHelper.orderBy("end_time desc");
-        List<SalaryRecord> salaryList = salaryService.findSalaryList(salaryRecord, null, null);
-
-        PageInfo<SalaryRecord> salaryRecordPageInfo = new PageInfo<>(salaryList,10);
+        PageInfo<SalaryRecord> salaryRecordPageInfo = salaryService.findSalaryList(salaryRecord, null, null, pageNum, pageSize);
         return JSON.ok(salaryRecordPageInfo);
     }
 
     @RequestMapping("toSalaryInfo")
-    public String toSalaryInfo(Integer id,HttpSession session,Model model){
+    public String toSalaryInfo(Integer id, HttpSession session, Model model) {
 
         SalaryRecord salaryRecordInfo = salaryService.findSalaryListById(id);
-        model.addAttribute("salaryRecordInfo",salaryRecordInfo);
-//        System.out.println(salaryRecordInfo.getUserId());
-//        System.out.println(salaryRecordInfo.getBusinessMoney());
-//        System.out.println(salaryRecordInfo.getEndTime());
-//        System.out.println(salaryRecordInfo.getStartTime());
-//        System.out.println(salaryRecordInfo.getWorkTime());
-//        System.out.println(salaryRecordInfo.getBusinessTime());
+        model.addAttribute("salaryRecordInfo", salaryRecordInfo);
         return "/salary/salaryInfo";
 
     }
 
     /**
      * 查询列表(管理员接口)
-     * @param session 权限验证
-     * @param pageNum 页码
-     * @param pageSize 每页显示个数
+     *
+     * @param session      权限验证
+     * @param pageNum      页码
+     * @param pageSize     每页显示个数
      * @param salaryRecord 查询用户信息(用户id,开始结束时间)
-     * @param userName 用户名
-     * @param bossName 老板名称
+     * @param userName     用户名
+     * @param bossName     老板名称
      * @return 查询结果
      */
     @RequestMapping("getSalaryListWithAdmin")
     @ResponseBody
-    public JSON getSalaryRecordListWithAdmin(HttpSession session, Integer pageNum, Integer pageSize, SalaryRecord salaryRecord,String userName,String bossName){
+    public JSON getSalaryRecordListWithAdmin(HttpSession session, Integer pageNum, Integer pageSize, SalaryRecord salaryRecord, String userName, String bossName) {
         if (pageNum == null || pageNum <= 0) {
             pageNum = 1;
         }
@@ -108,24 +99,21 @@ public class SalaryController {
             pageSize = 10;
         }
 
-        PageHelper.startPage(pageNum,pageSize);
-        PageHelper.orderBy("end_time desc");
-        List<SalaryRecord> salaryList = salaryService.findSalaryList(salaryRecord, userName, bossName);
-
-        PageInfo<SalaryRecord> salaryRecordPageInfo = new PageInfo<>(salaryList,10);
+        PageInfo<SalaryRecord> salaryRecordPageInfo = salaryService.findSalaryList(salaryRecord, userName, bossName, pageNum, pageSize);
         return JSON.ok(salaryRecordPageInfo);
     }
 
 
     /**
      * 发放奖金(系统中所有用户)
+     *
      * @param session 用户信息
-     * @param bonus 奖金
+     * @param bonus   奖金
      * @return 发放奖金数量及状态
      */
     @RequestMapping("salaryMoneyAllUserWithAdmin")
     @ResponseBody
-    public JSON salaryMoneyAllUser(HttpSession session, Double bonus){
+    public JSON salaryMoneyAllUserWithAdmin(HttpSession session, Double bonus) {
 
         Integer payoff = salaryService.payoff(bonus);
 
@@ -134,14 +122,15 @@ public class SalaryController {
 
     /**
      * 发放奖金(选中人员)
+     *
      * @param userIds 用户id列表
-     * @param bonus 奖金
+     * @param bonus   奖金
      * @param session 用户信息
      * @return 发放奖金数量及状态
      */
     @RequestMapping("salaryMoneyByUserIdsWithAdmin")
     @ResponseBody
-    public JSON salaryMoneyByUserIds(List<String> userIds,Double bonus,HttpSession session){
+    public JSON salaryMoneyByUserIdsWithAdmin(List<String> userIds, Double bonus, HttpSession session) {
         Integer payoff = salaryService.payoff(userIds, bonus);
         return JSON.ok(payoff);
     }

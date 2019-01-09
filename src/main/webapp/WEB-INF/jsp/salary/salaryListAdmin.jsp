@@ -90,15 +90,6 @@
 
 <!--<![endif]-->
 <div class="content">
-
-    <!--第一行-->
-    <div class="header">
-        <h1 class="page-title">管理员</h1>
-        <ul class="breadcrumb">
-            <li><a href="index.html">首页</a></li>
-            <li class="active">薪资管理</li>
-        </ul>
-    </div>
     <div class="main-content">
         <!--按钮-->
         <div class="btn-toolbar list-toolbar">
@@ -110,7 +101,7 @@
             用户名称:<input type="text" id="userName">
             老板名称:<input type="text" id="bossName">
             <%--<button class="btn btn-primary"><i class="fa fa-plus"></i> 新用户</button>--%>
-            <button class="btn btn-default" onclick="getSalaryList(1,10,1,1,1,1,1)">查询</button>
+            <button class="btn btn-default" onclick="getSalaryList(1,10)">查询</button>
             <%--<button class="btn btn-default">导出</button>--%>
             <div class="btn-group">
             </div>
@@ -174,33 +165,33 @@
      * @param pageNum 页码
      * @param pageSize 每页显示个数
      */
-    function getSalaryList(pageNums, pageSize, start, end, userId, userName, bossName) {
+    function getSalaryList(pageNums, pageSize) {
         var context = "<%=request.getContextPath()%>";
         if (pageSize == null || pageSize <= 0) {
             pageSize = 10;
         }
-        if (pageNums==null||pageNums==""||pageNums<1){
-            pageNums=1;
+        if (pageNums == null || pageNums == "" || pageNums < 1) {
+            pageNums = 1;
         }
-        if (start != null) {
-            start = $("#start").val();
-            alert(start);
+        var start = $("#start").val();
+        if (start == null || start == "") {
+            start = undefined;
         }
-        if (end != null) {
-            end = $("#end").val();
-            alert(end);
+        var end = $("#end").val();
+        if (end == null || end == "") {
+            end = undefined;
         }
-        if (userId != null) {
-            userId = $("#userId").val();
-            alert(userId);
+        var userId = $("#userId").val();
+        if (userId == null || userId == "") {
+            userId = undefined;
         }
-        if (userName != null) {
-            userName = $("#userName").val();
-            alert(userName);
+        var userName = $("#userName").val();
+        if (userName == null || userName == "") {
+            userName = undefined;
         }
-        if (bossName != null) {
-            bossName = $("#bossName").val();
-            alert(bossName);
+        var bossName = $("#bossName").val();
+        if (bossName == null || bossName == "") {
+            bossName = undefined;
         }
         $.ajax({
             type: "POST",
@@ -228,19 +219,19 @@
 
                 //页码----------------------------------------------------------------
                 var pageNum = "";
-                if (pageNums>1){
+                if (pageNums > 1) {
                     //上一页
-                    pageNum = "<li><a onclick='getSalaryList(" + (pageNums-1) + ", 10)'>&laquo;</a></li>";
+                    pageNum = "<li><a onclick='getSalaryList(" + (pageNums - 1) + ", 10)'>&laquo;</a></li>";
                 }
                 for (var i = 1; i <= data.data.navigateLastPage; i++) {
-                    if (i==pageNums){
+                    if (i == pageNums) {
                         pageNum += "<li><a style='background-color: #e5e5e5;' onclick='getSalaryList(" + i + ", 10)'>" + i + "</a></li>";
-                    }else {
+                    } else {
                         pageNum += "<li><a onclick='getSalaryList(" + i + ", 10)'>" + i + "</a></li>";
                     }
                 }
-                if (pageNums<data.data.navigateLastPage){
-                    pageNum += "<li><a onclick='getSalaryList(" + (pageNums+1) + ", 10)'>&raquo;</a></li>";
+                if (pageNums < data.data.navigateLastPage) {
+                    pageNum += "<li><a onclick='getSalaryList(" + (pageNums + 1) + ", 10)'>&raquo;</a></li>";
                 }
                 pageNum += "跳转至<input type='number' id='pageNums' min='1' step='1' max='" + data.data.navigateLastPage + "'/> 页" +
                     "<button onclick='skip()'>跳转</button>";

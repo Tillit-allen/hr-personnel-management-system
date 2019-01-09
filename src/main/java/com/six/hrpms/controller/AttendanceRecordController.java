@@ -51,12 +51,23 @@ public class AttendanceRecordController {
         User u = (User) session.getAttribute("user");
         AttendanceRecord attendanceRecord = new AttendanceRecord();
         attendanceRecord.setUserId(u.getUserId()); //测试，将user_id设置为1
-
+        //分页
         PageHelper.startPage(pageNum, pageSize);
-        List<AttendanceRecord> attendanceRecordList = attendanceRecordService.selectAttendanceRecordList(attendanceRecord);
-
+        List<AttendanceRecord> attendanceRecordList1 = attendanceRecordService.selectAttendanceRecordList(attendanceRecord);
+        //新建List将status改为汉字
+        List<AttendanceRecord> attendanceRecordList = attendanceRecordList1;
+        for(int i = 0;i < attendanceRecordList1.size();i++){
+            if (attendanceRecordList1.get(i).getStatus().equals("1")){
+                attendanceRecordList.get(i).setStatus("准时签到");
+            }else if(attendanceRecordList1.get(i).getStatus().equals("2")){
+                attendanceRecordList.get(i).setStatus("小迟到");
+            }else if(attendanceRecordList1.get(i).getStatus().equals("3")){
+                attendanceRecordList.get(i).setStatus("大迟到");
+            }else if(attendanceRecordList1.get(i).getStatus().equals("4")){
+                attendanceRecordList.get(i).setStatus("签退");
+            }
+        }
         PageInfo<AttendanceRecord> attendanceRecordPageInfo = new PageInfo<>(attendanceRecordList);
-
         return JSON.ok(attendanceRecordPageInfo);
     }
 
@@ -104,13 +115,13 @@ public class AttendanceRecordController {
         now1 = calendar.getTime(); //这个时间就是日期往后推一天的结果
         java.sql.Date datetime2 = new java.sql.Date(now1.getTime());//将往后推一天的时间转为sql类型
 
-        if (attendanceRecordService.selectAttendanceRecordList1(attendanceRecord, datetime1, datetime2).size() == 1) {
-            model.addAttribute("attendanceRecordList0",
-                    attendanceRecordService.selectAttendanceRecordList1(attendanceRecord, datetime1, datetime2).get(0).getStatus());
-        } else if (attendanceRecordService.selectAttendanceRecordList1(attendanceRecord, datetime1, datetime2).size() == 2) {
-            model.addAttribute("attendanceRecordList0",
-                    attendanceRecordService.selectAttendanceRecordList1(attendanceRecord, datetime1, datetime2).get(1).getStatus());
-        } else if (attendanceRecordService.selectAttendanceRecordList1(attendanceRecord, datetime1, datetime2).size() == 0) {
+        List<AttendanceRecord> attendanceRecordList = attendanceRecordService.selectAttendanceRecordList1(attendanceRecord,datetime1,datetime2);
+
+        if (attendanceRecordList.size() == 1) {
+            model.addAttribute("attendanceRecordList0", attendanceRecordList.get(0).getStatus());
+        } else if (attendanceRecordList.size() == 2) {
+            model.addAttribute("attendanceRecordList0", attendanceRecordList.get(1).getStatus());
+        } else if (attendanceRecordList.size() == 0) {
             model.addAttribute("attendanceRecordList0", 0);
         }
         return "attendance/Status";
@@ -137,15 +148,7 @@ public class AttendanceRecordController {
         if (number == 0) {
             //当天未签到
             model.addAttribute("number", 0);//返回前端签到状态
-            //随机生成id
-            String base = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            Random random = new Random();
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < 3; i++) {
-                int k = random.nextInt(base.length() - 1);
-                sb.append(base.charAt(k));
-            }
-            attendanceRecord.setId(sb.toString());
+            attendanceRecord.setId(UUID.randomUUID().toString());
             DateAndStringTransform dateAndStringTransform = new DateAndStringTransform(); //时间判断类
             //签到是否迟到判断
             time = dateAndStringTransform.judgmentPeriod(date, "09:00", "09:15");
@@ -171,15 +174,7 @@ public class AttendanceRecordController {
             } else if (time == 3) {
                 //可以签退
                 model.addAttribute("time", 3);//返回前端可以签退信息
-                //随机生成id
-                String base = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                Random random = new Random();
-                StringBuffer sb = new StringBuffer();
-                for (int i = 0; i < 3; i++) {
-                    int k = random.nextInt(base.length() - 1);
-                    sb.append(base.charAt(k));
-                }
-                attendanceRecord.setId(sb.toString());
+                attendanceRecord.setId(UUID.randomUUID().toString());
                 try {
                     attendanceRecord.setStatus("4");
                     attendanceRecordService.insertAttendanceRecord(attendanceRecord);
@@ -219,8 +214,21 @@ public class AttendanceRecordController {
     public JSON getAllAttendanceRecordListWithAdmin(HttpSession session, Integer pageNum, Integer pageSize) {
 
         PageHelper.startPage(pageNum, pageSize);
-        List<AttendanceRecord> attendanceRecordList = attendanceRecordService.findAllAttendanceRecordList();
+        List<AttendanceRecord> attendanceRecordList1 = attendanceRecordService.findAllAttendanceRecordList();
 
+        //新建List将status改为汉字
+        List<AttendanceRecord> attendanceRecordList = attendanceRecordList1;
+        for(int i = 0;i < attendanceRecordList1.size();i++){
+            if (attendanceRecordList1.get(i).getStatus().equals("1")){
+                attendanceRecordList.get(i).setStatus("准时签到");
+            }else if(attendanceRecordList1.get(i).getStatus().equals("2")){
+                attendanceRecordList.get(i).setStatus("小迟到");
+            }else if(attendanceRecordList1.get(i).getStatus().equals("3")){
+                attendanceRecordList.get(i).setStatus("大迟到");
+            }else if(attendanceRecordList1.get(i).getStatus().equals("4")){
+                attendanceRecordList.get(i).setStatus("签退");
+            }
+        }
         PageInfo<AttendanceRecord> attendanceRecordPageInfo = new PageInfo<>(attendanceRecordList);
 
         return JSON.ok(attendanceRecordPageInfo);
@@ -240,8 +248,20 @@ public class AttendanceRecordController {
 
         PageHelper.startPage(pageNum, pageSize);
 
-        List<AttendanceRecord> attendanceRecordList = attendanceRecordService.getUserAttendanceRecord(userId,datetime,datetime2);
-
+        List<AttendanceRecord> attendanceRecordList1 = attendanceRecordService.getUserAttendanceRecord(userId,datetime,datetime2);
+        //新建List将status改为汉字
+        List<AttendanceRecord> attendanceRecordList = attendanceRecordList1;
+        for(int i = 0;i < attendanceRecordList1.size();i++){
+            if (attendanceRecordList1.get(i).getStatus().equals("1")){
+                attendanceRecordList.get(i).setStatus("准时签到");
+            }else if(attendanceRecordList1.get(i).getStatus().equals("2")){
+                attendanceRecordList.get(i).setStatus("小迟到");
+            }else if(attendanceRecordList1.get(i).getStatus().equals("3")){
+                attendanceRecordList.get(i).setStatus("大迟到");
+            }else if(attendanceRecordList1.get(i).getStatus().equals("4")){
+                attendanceRecordList.get(i).setStatus("签退");
+            }
+        }
         PageInfo<AttendanceRecord> attendanceRecordPageInfo = new PageInfo<>(attendanceRecordList);
 
         return JSON.ok(attendanceRecordPageInfo);

@@ -1,5 +1,6 @@
 package com.six.hrpms.service;
 
+import com.github.pagehelper.PageInfo;
 import com.six.hrpms.pojo.AttendanceRecord;
 import com.six.hrpms.pojo.SalaryRecord;
 import com.six.hrpms.pojo.UserInfo;
@@ -20,10 +21,12 @@ public interface SalaryService {
      * @param salaryRecord 用于存储查询条件(用户id,开始/结束时间)
      *                     注:皆可为空,为空表示不凭该条件查询
      * @param userName     用户名.通过用户名查询.
+     * @param pageNum      页码
+     * @param pageSize     每页显示个数
      * @return 成功: 信息列表
      * 失败: null
      */
-    List<SalaryRecord> findSalaryList(SalaryRecord salaryRecord, String userName, String bossName);
+    PageInfo<SalaryRecord> findSalaryList(SalaryRecord salaryRecord, String userName, String bossName, Integer pageNum, Integer pageSize);
 
     /**
      * 根据薪资id,查询薪资详情
@@ -38,10 +41,10 @@ public interface SalaryService {
      * 支付工资
      *
      * @param userIds 用户id列表
-     * @param bonus 奖金
+     * @param bonus   奖金
      * @return 成功发工资人数.
      */
-    Integer payoff(List<String> userIds,Double bonus);
+    Integer payoff(List<String> userIds, Double bonus);
 
     /**
      * 发送所有员工工资
@@ -51,5 +54,5 @@ public interface SalaryService {
     Integer payoff(Double bonus);
 
 
-    List<AttendanceRecord> findAttendanceRecords(UserInfo user, Date start, Date end, String status);
+    List<AttendanceRecord> findAttendanceRecords(UserInfo user, Date start, Date end, List<String> status);
 }

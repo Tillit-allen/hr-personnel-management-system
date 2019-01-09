@@ -90,15 +90,6 @@
 
 <!--<![endif]-->
 <div class="content">
-
-    <!--第一行-->
-    <div class="header">
-        <h1 class="page-title">用户</h1>
-        <ul class="breadcrumb">
-            <li><a href="index.html">首页</a></li>
-            <li class="active">薪资管理</li>
-        </ul>
-    </div>
     <div class="main-content">
         <!--按钮-->
         <div class="btn-toolbar list-toolbar">
@@ -176,11 +167,16 @@
         if (pageSize == null || pageSize <= 0) {
             pageSize = 10;
         }
-        if (start == null) {
-            start = $("#start").val();
+        if (pageNums == null || pageNums == "" || pageNums < 1) {
+            pageNums = 1;
         }
-        if (end == null) {
-            end = $("#end").val();
+        var start = $("#start").val();
+        if (start == null || start == "") {
+            start = undefined;
+        }
+        var end = $("#end").val();
+        if (end == null || end == "") {
+            end = undefined;
         }
         $.ajax({
             type: "POST",
@@ -230,7 +226,7 @@
     }
 
     function toInfo(id) {
-        window.location.href = "<%=request.getContextPath()%>/salart/toSalartInfo?id=" + id;
+        window.location.href = "<%=request.getContextPath()%>/salary/toSalaryInfo?id=" + id;
     }
 
     function skip() {

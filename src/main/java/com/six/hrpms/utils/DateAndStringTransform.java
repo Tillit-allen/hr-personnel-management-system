@@ -124,7 +124,7 @@ public class DateAndStringTransform {
     }
 
     /**
-     * 计算两个时间的小时差
+     * 计算两个时间的小时差a
      *
      * @return
      */
