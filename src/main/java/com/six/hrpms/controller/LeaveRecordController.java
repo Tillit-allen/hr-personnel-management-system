@@ -42,7 +42,7 @@ public class LeaveRecordController {
     }
 
     @RequestMapping("toAddLeaveList")
-    public String toAddLeaveList(HttpSession session) {
+    public String toAddLeaveList() {
         return "leave/addLeaveRecord";
     }
 
@@ -66,7 +66,7 @@ public class LeaveRecordController {
     //上司浏览请假信息
     @RequestMapping("/getLeaveListWithAdmin")
     @ResponseBody
-    public JSON findAllListWithAdmin(Integer pageNum, Integer pageSize, Date start, Date end) {
+    public JSON findAllListWithAdmin(HttpSession session,Integer pageNum, Integer pageSize, Date start, Date end) {
 
         PageHelper.startPage(pageNum, pageSize);
         List<LeaveRecord> allList = leaveRecordService.findAllList(start, end);
@@ -146,7 +146,7 @@ public class LeaveRecordController {
 
     //审核(admin)
     @RequestMapping("CheckLeaveRecord")
-    public String CheckLeaveRecord(LeaveRecord leaveRecord, RedirectAttributesModelMap model) {
+    public String CheckLeaveRecord(HttpSession session,LeaveRecord leaveRecord, RedirectAttributesModelMap model) {
 
         try {
             leaveRecordService.CheckLeaveRecord(leaveRecord);
