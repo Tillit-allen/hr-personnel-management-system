@@ -200,7 +200,7 @@
                 var html = "";
                 $.each(data.data.list, function (index, item) {
                     html += "<tr  onclick='toInfo(" + item.id + ")'>" +
-                        "<td>" + item.userId + "</td>" +
+                        "<td>" + item.id + "</td>" +
                         "<td>" + item.userId + "</td>" +
                         "<td>" + item.type + "</td>" +
                         "<td>" + item.startTime
