@@ -68,7 +68,7 @@
             <li class="dropdown hidden-xs">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;">
-                            ${sessionScope.user.userId}</span>
+                            ${sessionScope.userInfo.userName}</span>
                     <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu">
@@ -121,9 +121,20 @@
             <li ><a href="${pageContext.request.contextPath}/leave/toLeaveList"><span class="fa fa-caret-right"></span> 员工请假记录 </a></li>
         </ul></li>
 
-        <li><a onclick=toPage("") class="nav-header"><i class="fa fa-fw fa-question-circle"></i>薪资管理</a></li>
-        <!--<li><a href="faq.html" class="nav-header"><i class="fa fa-fw fa-comment"></i> Faq</a></li>-->
-        <li><a onclick=toPage("") class="nav-header" target="blank"><i class="fa fa-fw fa-heart"></i> 出差报销</a></li>
+        <li><a href="#" data-target=".accounts-menu1" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-question-circle">
+        </i>薪资管理<i class="fa fa-collapse"></i></a></li>
+        <li><ul class="accounts-menu1 nav nav-list collapse">
+            <li ><a onclick=toUrl("/salary/toSalaryList")><span class="fa fa-caret-right"></span> 个人薪资列表</a></li>
+            <li id="adminSalaryMenu"><a onclick=toUrl("/salary/toSalaryListWithAdmin")><span class="fa fa-caret-right"></span> 管理员薪资列表</a></li>
+        </ul>
+
+        <li><a href="#" data-target=".accounts-menu2" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-question-circle">
+        </i>出差报销<i class="fa fa-collapse"></i></a></li>
+        <li><ul class="accounts-menu2 nav nav-list collapse">
+            <li ><a onclick=toPage("Reimburse/useradd")><span class="fa fa-caret-right"></span> 出差报销申请</a></li>
+            <li ><a onclick=toPage("Reimburse/userlist")><span class="fa fa-caret-right"></span> 个人提交列表</a></li>
+            <li ><a onclick=toPage("Reimburse/AdminList")><span class="fa fa-caret-right"></span> 管理员申请审批</a></li>
+        </ul></li>
     </ul>
 </div></div>
 <c:choose>

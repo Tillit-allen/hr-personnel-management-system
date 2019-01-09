@@ -1,5 +1,7 @@
 package com.six.hrpms.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class BusinessRecord {
@@ -34,7 +36,7 @@ public class BusinessRecord {
     public void setUserId(String userId) {
         this.userId = userId == null ? null : userId.trim();
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     public Date getStartTime() {
         return startTime;
     }
@@ -42,7 +44,7 @@ public class BusinessRecord {
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     public Date getEndTime() {
         return endTime;
     }
