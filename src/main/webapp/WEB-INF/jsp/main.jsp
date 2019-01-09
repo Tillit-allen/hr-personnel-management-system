@@ -68,7 +68,7 @@
             <li class="dropdown hidden-xs">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;">
-                            ${sessionScope.user.loginName}</span>
+                            ${sessionScope.user.userId}</span>
                     <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu">

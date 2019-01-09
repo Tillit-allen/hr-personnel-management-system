@@ -14,12 +14,14 @@ public interface OvertimeRecordsService {
 
       void updateOvertimeRecords(OvertimeRecords overtimeRecords);
 
-      List<OvertimeRecords> getApplyOvertime();
+      List<OvertimeRecords> getApplyOvertime(String userId);
 
       List<OvertimeRecords> getApplyOvertimeRecords();
 
-      List<OvertimeRecords> selectOvertimeRecords(OvertimeRecords overtimeRecords);
+      List<OvertimeRecords> selectOvertimeRecordsByuserId(String keyword);
 
       int checkOvertime(OvertimeRecords overtimeRecords);
+
+      OvertimeRecords selectOvertime(OvertimeRecords overtimeRecords);
 }
 

@@ -40,38 +40,39 @@
                 <form id="tab">
 
                     <div class="form-group">
-
+                        <label>申请编号</label>
                         <input type="text" placeholder="申请编号" class="form-control" v-model="id"/>
                     </div>
                     <div class="form-group">
-
-                        <input type="text" placeholder="员工编号" class="form-control" v-model="user_id"/>
+                        <label>员工编号</label>
+                        <input type="text" placeholder="员工编号" class="form-control" v-model="user_id" disabled/>
                     </div>
 
 
                     <div class="form-group">
-
+                        <label>开始时间</label>
                         <input type="date" placeholder="开始时间" class="form-control" v-model="start_time"/>
                     </div>
 
                     <div class="form-group">
-
+                        <label>结束时间</label>
                         <input type="date" placeholder="结束时间" class="form-control" v-model="end_time"/>
                     </div>
 
                     <div class="form-group">
-
+                        <label>地点</label>
                         <input type="text" placeholder="地点" class="form-control" v-model="place"/>
                     </div>
 
                     <div class="form-group">
-
+                        <label>审核状态</label>
                         <input type="text" placeholder="审核状态" class="form-control" v-model="audit_status" disabled/>
                     </div>
                 </form>
             </div>
             <div class="btn-toolbar list-toolbar">
                 <button class="btn btn-primary" @click="doSubmit" type="button"><i class="fa fa-save"></i> 提交</button>
+
                 <button class="btn btn-primary" @click="doRes" type="button"><i class="fa fa-save"></i> 重置</button>
             </div>
         </div>
@@ -84,13 +85,12 @@
     new Vue({
         el: "#init_zone",
         data: {
-            id:"",
-            user_id: "",
-            start_time: "",
-            end_time: "",
-            place: "",
-            audit_status: 0,
-
+                id:"",
+                user_id: "${sessionScope.user.userId}",
+                start_time: "${myDate.getDate()}",
+                end_time: "",
+                place: "",
+                audit_status: 0,
         },
         methods: {
             doSubmit: function () {
@@ -107,8 +107,7 @@
                     type:"post",
                     dataType: "json",
                     success: function () {
-
-                        window.location.href=context+"/toPage?page=OvertimeRecords/showApplyOvertime";
+                         window.location.href=context+"/toPage?page=OvertimeRecords/showApplyOvertime";
                     },
                     error:function () {
                         alert(0);
@@ -117,27 +116,11 @@
             },
             doRes: function () {
                 location.reload();
-
             },
-        },
-        mounted: function () {
-            const this_ = this;
-            // $.ajax({
-            //     url: "",
-            //     data: {},
-            //     type: "post",
-            //     dataType: "json",
-            //     success: function (res) {
-            //         this_.tableData = res.data;
-            //         console.log(res);
-            //     },
-            //     error: function () {
-            //
-            //     }
-            // })
-        }
 
-    })
+        },
+
+      })
 </script>
 
 </body>

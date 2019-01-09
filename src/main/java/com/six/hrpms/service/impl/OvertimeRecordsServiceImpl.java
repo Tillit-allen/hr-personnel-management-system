@@ -19,7 +19,7 @@ public class OvertimeRecordsServiceImpl implements OvertimeRecordsService {
         this.overtimeRecordsMapper = overtimeRecordsMapper;
     }
 
-    /*
+    /**
     添加
      */
     @Override
@@ -27,26 +27,31 @@ public class OvertimeRecordsServiceImpl implements OvertimeRecordsService {
         overtimeRecordsMapper.insert(overtimeRecords);
     }
 
-    /*
+    /**
     删除申请信息
      */
     @Override
     public Integer deleteOvertimeRecords(OvertimeRecords overtimeRecords) {
         OvertimeRecordsExample overtimeRecordsExample = new OvertimeRecordsExample();
         OvertimeRecordsExample.Criteria criteria = overtimeRecordsExample.createCriteria();
-        criteria.andUserIdEqualTo(overtimeRecords.getUserId());
+        criteria.andIdEqualTo(overtimeRecords.getId());
        return overtimeRecordsMapper.deleteByExample(overtimeRecordsExample);
 
     }
 
+    /**
+    更新加班信息
+     */
     @Override
     public void updateOvertimeRecords(OvertimeRecords overtimeRecords) {
+
         overtimeRecordsMapper.updateByPrimaryKey(overtimeRecords);
+
     }
 
 
-    /*
-    管理员 员工信息显示
+    /**
+    管理员待审核信息显示
      */
     @Override
     public List<OvertimeRecords> getApplyOvertimeRecords() {
@@ -57,16 +62,24 @@ public class OvertimeRecordsServiceImpl implements OvertimeRecordsService {
         return overtimeRecords;
     }
 
-
-    /*
-    员工信息显示
-     */
     @Override
-    public List<OvertimeRecords> getApplyOvertime() {
+    public List<OvertimeRecords> selectOvertimeRecordsByuserId(String keyword) {
         OvertimeRecordsExample overtimeRecordsExample = new OvertimeRecordsExample();
         OvertimeRecordsExample.Criteria criteria = overtimeRecordsExample.createCriteria();
-        criteria.andIdIsNotNull();
-        List<OvertimeRecords> overtimeRecords = overtimeRecordsMapper.selectByExample(overtimeRecordsExample);
+        criteria.andUserIdEqualTo(keyword);
+        return overtimeRecordsMapper.selectByExample(overtimeRecordsExample);
+    }
+
+
+    /**
+    我的审核信息显示
+     */
+    @Override
+    public List<OvertimeRecords> getApplyOvertime(String userId) {
+        OvertimeRecordsExample overtimeRecordsExample = new OvertimeRecordsExample();
+        OvertimeRecordsExample.Criteria criteria = overtimeRecordsExample.createCriteria();
+        criteria.andUserIdEqualTo(userId);
+       List<OvertimeRecords> overtimeRecords = overtimeRecordsMapper.selectByExample(overtimeRecordsExample);
         return overtimeRecords;
     }
 
@@ -82,22 +95,22 @@ public class OvertimeRecordsServiceImpl implements OvertimeRecordsService {
 //    }
 
 
+    /**
+     * 查询请假信息
+     * @param overtimeRecords
+     * @return
+     */
+    @Override
+    public OvertimeRecords selectOvertime(OvertimeRecords overtimeRecords) {
+        return overtimeRecordsMapper.selectByPrimaryKey(overtimeRecords.getId());
+    }
+
     @Override
     public int checkOvertime(OvertimeRecords overtimeRecords) {
         return overtimeRecordsMapper.updateByPrimaryKeySelective(overtimeRecords);
     }
 
-    /**
-     * 员工信息查询
-     */
-    @Override
-    public List<OvertimeRecords> selectOvertimeRecords(OvertimeRecords overtimeRecords) {
-        OvertimeRecordsExample overtimeRecordsExample = new OvertimeRecordsExample();
-        OvertimeRecordsExample.Criteria criteria = overtimeRecordsExample.createCriteria();
-        criteria.andUserIdLike(overtimeRecords.getUserId());
-        List<OvertimeRecords> list = overtimeRecordsMapper.selectByExample(overtimeRecordsExample);
-        return list;
-    }
+
 
 
 }

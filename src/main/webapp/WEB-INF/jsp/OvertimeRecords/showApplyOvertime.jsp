@@ -70,7 +70,7 @@
             tableData:[]
         },
 
-        //删除方法
+        //删除申请信息
         methods:{
             doDel:function (row) {
                 if(confirm("是否确定删除本条记录")){
@@ -78,7 +78,7 @@
                     $.ajax({
                         url:"${pageContext.request.contextPath}/deleteOvertimeRecords",
                         data:{
-                            userId:row.userId
+                            id:row.id
                         },
                         type:"post",
                         dataType: "json",
@@ -95,28 +95,12 @@
                 }
 
             },
+
             doEdit:function (row) {
-                const this1 = this;
-                $.ajax({
-                    url:"${pageContext.request.contextPath}/getApplyOvertimeRecords1",
-                    data:{
-                        userId:row.userId
-                    },
-                    type:"post",
-                    dataType:"json",
-                    success:function (res1) {
-                        this1.tableData = res1.data;
-                        window.location.href=context+"/toPage?page=OvertimeRecords/addApplyOvertime";
-                        console.log(res1);
-                    },
-                    error:function () {
-
-                    }
-                })
+                window.location="${pageContext.request.contextPath}/toEditOvertime?id="+row.id;
             },
-            doSearch:function () {
 
-            }
+
         },
         mounted:function () {
             const this_ = this;
