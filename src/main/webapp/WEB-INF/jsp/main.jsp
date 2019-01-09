@@ -72,12 +72,8 @@
                     <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">我的信息</a></li>
-                    <li><a href="#">修改密码</a></li>
-                    <li class="divider"></li>
-                    <li class="dropdown-header">管理员模块</li>
-                        <%--<li><a href="#">Security</a></li>--%>
-                        <%--<li><a tabindex="-1" href="#">Payments</a></li>--%>
+                    <li><a onclick=toPage("/ThisUserData")>我的信息</a></li>
+                    <li><a onclick=toPage("/ChangePassword")>修改密码</a></li>
                     <li class="divider"></li>
                     <li><a tabindex="-1" href="/logout">登出</a></li>
                 </ul>
@@ -90,11 +86,15 @@
     <ul>
         <li><a href="#" data-target=".dashboard-menu" class="nav-header" data-toggle="collapse"><i class="fa fa-fw fa-dashboard"></i> 人员信息<i class="fa fa-collapse"></i></a></li>
         <li><ul class="dashboard-menu nav nav-list collapse in">
-            <!--<li><a onclick=toPage("index.html")><span class="fa fa-caret-right"></span> 首页</a></li>-->
-            <li ><a onclick=toPage("employee/EmployeeList")><span class="fa fa-caret-right"></span> 员工列表</a></li>
-            <li ><a onclick=toPage("employee/addEmployee1")><span class="fa fa-caret-right"></span> 初始化员工信息</a></li>
+            <c:choose>
+                <c:when test="${sessionScope.userInfo.isAdministrator==3}">
+                    <li ><a onclick=toPage("employee/EmployeeList")><span class="fa fa-caret-right"></span> 员工列表</a></li>
+                    <li ><a onclick=toPage("employee/addEmployee1")><span class="fa fa-caret-right"></span> 初始化员工信息</a></li>
+                    <li ><a onclick=toPage("employee/checkAddEmployee")><span class="fa fa-caret-right"></span> 管理员校验</a></li>
+                </c:when>
+                <c:otherwise></c:otherwise>
+            </c:choose>
             <li ><a onclick=toPage("employee/addEmployee2")><span class="fa fa-caret-right"></span> 员工核准</a></li>
-            <li ><a onclick=toPage("employee/checkAddEmployee")><span class="fa fa-caret-right"></span> 管理员校验</a></li>
         </ul></li>
 
         <li data-popover="true" data-content="Items in this group require a <strong><a href='http://portnine.com/bootstrap-themes/aircraft' target='blank'>premium license</a><strong>."
@@ -103,14 +103,24 @@
         <li><ul class="premium-menu nav nav-list collapse">
             <li ><a onclick=toPage("attendance/addAttendanceRecord")><span class="fa fa-caret-right"></span> 签到</a></li>
             <li ><a onclick=toPage("attendance/AttendanceRecordList")><span class="fa fa-caret-right"></span> 查询个人签到记录</a></li>
-            <li ><a onclick=toPage("attendance/AttendanceRecordList1")><span class="fa fa-caret-right"></span> 管理员查询签到记录</a></li>
+            <c:choose>
+                <c:when test="${sessionScope.userInfo.isAdministrator==3}">
+                    <li ><a onclick=toPage("attendance/AttendanceRecordList1")><span class="fa fa-caret-right"></span> 管理员查询签到记录</a></li>
+                </c:when>
+            </c:choose>
+
         </ul></li>
 
         <li><a href="#" data-target=".accounts-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-briefcase"></i> 加班申请<i class="fa fa-collapse"></i></a></li>
         <li><ul class="accounts-menu nav nav-list collapse">
             <li ><a onclick=toPage("OvertimeRecords/addApplyOvertime")><span class="fa fa-caret-right"></span> 加班申请</a></li>
             <li ><a onclick=toPage("OvertimeRecords/showApplyOvertime")><span class="fa fa-caret-right"></span> 我的申请</a></li>
-            <li ><a onclick=toPage("OvertimeRecords/checkAddApplyOvertime")><span class="fa fa-caret-right"></span> 管理员校验</a></li>
+            <c:choose>
+                <c:when test="${sessionScope.userInfo.isAdministrator==3}">
+                    <li><a onclick=toPage("OvertimeRecords/checkAddApplyOvertime")><span class="fa fa-caret-right"></span> 管理员校验</a></li>
+                </c:when>
+            </c:choose>
+
 
         </ul></li>
 
@@ -118,14 +128,24 @@
         <li><ul class="legal-menu nav nav-list collapse">
             <li ><a href="${pageContext.request.contextPath}/leave/toLeaveListWithAdmin"><span class="fa fa-caret-right"></span> 请假记录 </a></li>
             <li ><a href="${pageContext.request.contextPath}/leave/toAddLeaveList"><span class="fa fa-caret-right"></span> 申请请假 </a></li>
-            <li ><a href="${pageContext.request.contextPath}/leave/toLeaveList"><span class="fa fa-caret-right"></span> 员工请假记录 </a></li>
+            <c:choose>
+                <c:when test="${sessionScope.userInfo.isAdministrator==3}">
+                    <li ><a href="${pageContext.request.contextPath}/leave/toLeaveList"><span class="fa fa-caret-right"></span> 员工请假记录 </a></li>
+                </c:when>
+            </c:choose>
+
         </ul></li>
 
         <li><a href="#" data-target=".accounts-menu1" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-question-circle">
         </i>薪资管理<i class="fa fa-collapse"></i></a></li>
         <li><ul class="accounts-menu1 nav nav-list collapse">
             <li ><a onclick=toUrl("/salary/toSalaryList")><span class="fa fa-caret-right"></span> 个人薪资列表</a></li>
-            <li id="adminSalaryMenu"><a onclick=toUrl("/salary/toSalaryListWithAdmin")><span class="fa fa-caret-right"></span> 管理员薪资列表</a></li>
+            <c:choose>
+                <c:when test="${sessionScope.userInfo.isAdministrator==3}">
+                    <li id="adminSalaryMenu"><a onclick=toUrl("/salary/toSalaryListWithAdmin")><span class="fa fa-caret-right"></span> 管理员薪资列表</a></li>
+                </c:when>
+            </c:choose>
+
         </ul>
 
         <li><a href="#" data-target=".accounts-menu2" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-question-circle">
@@ -133,7 +153,11 @@
         <li><ul class="accounts-menu2 nav nav-list collapse">
             <li ><a onclick=toPage("Reimburse/useradd")><span class="fa fa-caret-right"></span> 出差报销申请</a></li>
             <li ><a onclick=toPage("Reimburse/userlist")><span class="fa fa-caret-right"></span> 个人提交列表</a></li>
-            <li ><a onclick=toPage("Reimburse/AdminList")><span class="fa fa-caret-right"></span> 管理员申请审批</a></li>
+            <c:choose>
+                <c:when test="${sessionScope.userInfo.isAdministrator==3}">
+                    <li ><a onclick=toPage("Reimburse/AdminList")><span class="fa fa-caret-right"></span> 管理员申请审批</a></li>
+                </c:when>
+            </c:choose>
         </ul></li>
     </ul>
 </div></div>

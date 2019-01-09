@@ -74,7 +74,6 @@ public class UserInfo {
     public void setMarriage(String marriage) {
         this.marriage = marriage == null ? null : marriage.trim();
     }
-
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     public Date getBirthday() {
         return birthday;
@@ -99,7 +98,7 @@ public class UserInfo {
     public void setBasicWorkTime(Integer basicWorkTime) {
         this.basicWorkTime = basicWorkTime;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     public Date getSalaryTime() {
         return salaryTime;
     }
