@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: liuzixin
-  Date: 2018/12/29
-  Time: 13:55
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -45,7 +38,7 @@
                     </div>
                     <div class="form-group">
                         <label>员工编号</label>
-                        <input type="text" placeholder="员工编号" class="form-control" v-model="user_id" disabled/>
+                        <input type="text" placeholder="员工编号" class="form-control" v-model="user_id"/>
                     </div>
 
 
@@ -71,9 +64,9 @@
                 </form>
             </div>
             <div class="btn-toolbar list-toolbar">
-                <button class="btn btn-primary" @click="doSubmit" type="button"><i class="fa fa-save"></i> 提交</button>
 
-                <button class="btn btn-primary" @click="doRes" type="button"><i class="fa fa-save"></i> 重置</button>
+                <button class="btn btn-primary" @click="doUpdate" type="button"><i class="fa fa-save"></i> 反提交</button>
+                <button class="btn btn-primary" @click="doRes" type="button"><i class="fa fa-save"></i> 返回</button>
             </div>
         </div>
     </div>
@@ -85,42 +78,63 @@
     new Vue({
         el: "#init_zone",
         data: {
-                id:"",
-                user_id: "${sessionScope.user.userId}",
-                start_time: "${myDate.getDate()}",
-                end_time: "",
-                place: "",
-                audit_status: 0,
+            id:"",
+            user_id: "",
+            start_time: "",
+            end_time: "",
+            place: "",
+            audit_status: 0,
         },
         methods: {
-            doSubmit: function () {
+            doRes: function () {
+                window.location.href=context+"/toPage?page=OvertimeRecords/showApplyOvertime";
+            },
+            doUpdate: function () {
                 $.ajax({
-                    url: "${pageContext.request.contextPath}/addOvertimeRecords",
+                    url: "${pageContext.request.contextPath}/updateOvertimeRecords",
                     data: {
                         id: this.id,
                         userId: this.user_id,
                         startTime:this.start_time,
                         endTime:this.end_time,
                         place:this.place,
-                        auditStatus:this.audit_status
+                        auditStatus:this.audit_status,
                     },
                     type:"post",
                     dataType: "json",
                     success: function () {
-                         window.location.href=context+"/toPage?page=OvertimeRecords/showApplyOvertime";
+                        window.location.href=context+"/toPage?page=OvertimeRecords/showApplyOvertime";
                     },
                     error:function () {
-                        alert(0);
+                        alert("成功");
                     }
                 })
             },
-            doRes: function () {
-                location.reload();
-            },
 
+          },
+        mounted: function () {
+            const this_ = this;
+            $.ajax({
+                url: "${pageContext.request.contextPath}/toSerachOvertime",
+                type: "post",
+                dataType: "json",
+                success: function (res) {
+                    this_.user_id = res.data.userId;
+                    this_.start_time = res.data.startTime;
+                    this_.end_time = res.data.endTime;
+                    this_.place = res.data.place;
+                    this_.id = res.data.id;
+                    console.log(res);
+                },
+                error: function () {
+                    alert("服务器发生错误");
+                }
+            })
         },
 
-      })
+
+
+    })
 </script>
 
 </body>

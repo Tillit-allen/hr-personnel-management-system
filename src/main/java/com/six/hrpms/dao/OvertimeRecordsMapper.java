@@ -10,7 +10,7 @@ public interface OvertimeRecordsMapper {
 
     int deleteByExample(OvertimeRecordsExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(String id);
 
     int insert(OvertimeRecords record);
 
