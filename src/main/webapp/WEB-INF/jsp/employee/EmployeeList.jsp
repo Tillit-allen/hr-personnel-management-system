@@ -134,9 +134,30 @@
             },
             handleSelectionChange:function(val) {
                 this.multipleSelection = val;
-                console.log(this.multipleSelection[0].userId)
+                // console.log(this.multipleSelections)
             },
             doSalary:function () {
+                var userIds = new Array();
+                for(var i = 0;i<this.multipleSelection.length;i++){
+                    userIds[i] = this.multipleSelection[i].userId
+                }
+                console.log(userIds);
+                $.ajax({
+                    url:"/salary/salaryMoneyByUserIdsWithAdmin",
+                    type:"post",
+                    dataType:"json",
+                    data:{
+                        userIds:userIds,
+                        bonus:0
+                    },
+                    success:function (res) {
+                        console.log(res);
+                        alert("成了！");
+                    },
+                    error:function () {
+                        alert("不行");
+                    }
+                })
             },
             tochange_:function (row) {
                 window.location="${pageContext.request.contextPath}/toChange?id="+row.id ;

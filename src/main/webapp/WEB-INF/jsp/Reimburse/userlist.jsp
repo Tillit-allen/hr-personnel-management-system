@@ -28,7 +28,7 @@
 
     <style>
         .content {
-            margin-left: 0px;
+            margin-left: 7%;
         }
     </style>
 </head>
@@ -240,7 +240,7 @@
                 id: id
             },
             success: function () {
-                window.location.reload();
+                location.href = "${pageContext.request.contextPath}/BusinessRecord/toUserRecordList";
             }
         })
 

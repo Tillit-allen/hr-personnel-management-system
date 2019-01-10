@@ -39,6 +39,9 @@
             margin-top:100px;
             text-align: center;
         }
+        a{
+            cursor:pointer;
+        }
 
     </style>
 </head>
@@ -126,11 +129,11 @@
 
         <li><a href="#" data-target=".legal-menu" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-legal"></i>请假申请<i class="fa fa-collapse"></i></a></li>
         <li><ul class="legal-menu nav nav-list collapse">
-            <li ><a href="${pageContext.request.contextPath}/leave/toLeaveListWithAdmin"><span class="fa fa-caret-right"></span> 请假记录 </a></li>
-            <li ><a href="${pageContext.request.contextPath}/leave/toAddLeaveList"><span class="fa fa-caret-right"></span> 申请请假 </a></li>
+            <li ><a onclick=toPage("leave/leaveListWithAdmin")><span class="fa fa-caret-right"></span> 请假记录 </a></li>
+            <li ><a onclick=toPage("leave/addLeaveRecord.jsp")><span class="fa fa-caret-right"></span> 申请请假 </a></li>
             <c:choose>
                 <c:when test="${sessionScope.userInfo.isAdministrator==3}">
-                    <li ><a href="${pageContext.request.contextPath}/leave/toLeaveList"><span class="fa fa-caret-right"></span> 员工请假记录 </a></li>
+                    <li ><a onclick=toPage("leave/leaveList")><span class="fa fa-caret-right"></span> 员工请假记录 </a></li>
                 </c:when>
             </c:choose>
 
@@ -152,7 +155,7 @@
         </i>出差报销<i class="fa fa-collapse"></i></a></li>
         <li><ul class="accounts-menu2 nav nav-list collapse">
             <li ><a onclick=toPage("Reimburse/useradd")><span class="fa fa-caret-right"></span> 出差报销申请</a></li>
-            <li ><a onclick=toPage("Reimburse/userlist")><span class="fa fa-caret-right"></span> 个人提交列表</a></li>
+            <li ><a onclick=toUrl("BusinessRecord/toUserRecordList")><span class="fa fa-caret-right"></span> 个人提交列表</a></li>
             <c:choose>
                 <c:when test="${sessionScope.userInfo.isAdministrator==3}">
                     <li ><a onclick=toPage("Reimburse/AdminList")><span class="fa fa-caret-right"></span> 管理员申请审批</a></li>
@@ -164,8 +167,6 @@
 <c:choose>
     <c:when test="${sessionScope.user==null}">
         <div id="title">
-            <h2 >傻逼玩意登陆去滚滚滚滚</h2>
-            <br/>
             <span style="color:#aaaaaa">右上角点击登陆</span>
         </div>
     </c:when>

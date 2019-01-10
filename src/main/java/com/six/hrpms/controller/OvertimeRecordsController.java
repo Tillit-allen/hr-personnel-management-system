@@ -1,12 +1,9 @@
 package com.six.hrpms.controller;
 
 import com.six.hrpms.common.JSON;
-import com.six.hrpms.pojo.OvertimeRecordAdd;
 import com.six.hrpms.pojo.OvertimeRecords;
-import com.six.hrpms.pojo.OvertimeRecordsExample;
 import com.six.hrpms.pojo.User;
 import com.six.hrpms.service.OvertimeRecordsService;
-import com.six.hrpms.utils.DateAndStringTransform;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
